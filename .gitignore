@@ -11,3 +11,5 @@ lake/curated/features/
 lake/quarantine/
 lake/curated/features_daily/
 reports/pruebas/*/lake/
+reports/cloud/lake/
+reports/cloud/recuperado/

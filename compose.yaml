@@ -12,3 +12,39 @@ services:
     # Los argumentos de "docker compose run --rm etl ..." se pasan a etl_spark.py.
     entrypoint: ["/opt/spark/bin/spark-submit", "--master", "local[2]", "/workspace/etl_spark.py"]
     command: []
+  # ETL contra el lake en Cloudflare R2 (S3A). Credenciales en .env (ver .env.example), nunca en Git.
+  # docker compose run --rm etl-cloud --raw-root s3a://<bucket>/raw/yahoo --check-root s3a://<bucket>/raw/nasdaq \
+  #   --lake-root s3a://<bucket>/lake --out-root /workspace/reports/cloud
+  etl-cloud:
+    image: apache/spark:3.5.6
+    user: "0:0"
+    working_dir: /workspace
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      SPARK_LOCAL_IP: 127.0.0.1
+      PYTHONPATH: /workspace
+    volumes:
+      - .:/workspace
+      - ivy-cache:/ivy
+    entrypoint:
+      - /opt/spark/bin/spark-submit
+      - --master
+      - local[2]
+      - --packages
+      - org.apache.hadoop:hadoop-aws:3.3.4
+      - --conf
+      - spark.jars.ivy=/ivy
+      - --conf
+      - spark.hadoop.fs.s3a.endpoint=${R2_ENDPOINT:-}
+      - --conf
+      - spark.hadoop.fs.s3a.endpoint.region=auto
+      - --conf
+      - spark.hadoop.fs.s3a.path.style.access=true
+      - --conf
+      - spark.hadoop.fs.s3a.aws.credentials.provider=com.amazonaws.auth.EnvironmentVariableCredentialsProvider
+      - /workspace/etl_spark.py
+    command: []
+volumes:
+  ivy-cache:
