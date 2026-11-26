@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-26T17:12:27.356269+00:00",
+  "generated_at": "2026-11-26T17:30:38.250780+00:00",
   "status": "failed",
   "raw_root": "/workspace/tests/fixtures/fichero_ausente",
   "lake_root": "/tmp/lake_fichero_ausente",

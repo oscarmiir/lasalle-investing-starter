@@ -59,5 +59,15 @@ expect "$(raw_fingerprint)" "$raw_before" "raw intacto (huella de todos los fich
 git diff --quiet -- lake/raw
 expect "$?" 0 "git: sin cambios en lake/raw"
 
+say "-- Recuperación: se borran clean, curated y quarantine (Parquet) y se reconstruyen desde raw"
+rm -rf lake/clean/prices lake/curated/features lake/curated/features_daily lake/quarantine
+docker compose run --rm etl > "$OUT/recuperacion.log" 2>&1
+expect "$?" 0 "ETL de recuperación"
+expect "$(sha lake/curated/features.csv)" "$features_1" "features.csv recuperado idéntico"
+expect "$(sha lake/clean/prices.csv)" "$prices_1" "prices.csv recuperado idéntico"
+for table in clean/prices curated/features curated/features_daily quarantine/rejected; do
+  [ -d "lake/$table" ]; expect "$?" 0 "tabla Parquet lake/$table reconstruida"
+done
+
 say "== Resultado: $FAILURES fallos"
 [ "$FAILURES" -eq 0 ]

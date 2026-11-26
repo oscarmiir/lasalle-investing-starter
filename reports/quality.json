@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-26T17:13:53.352829+00:00",
+  "generated_at": "2026-11-26T17:33:58.064497+00:00",
   "status": "ok",
   "raw_root": "/workspace/lake/raw/yahoo",
   "lake_root": "/workspace/lake",
