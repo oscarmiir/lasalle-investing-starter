@@ -1,0 +1,53 @@
+# URL: https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo
+# Consultado: 2026-11-26T17:02:40Z
+# Primeros 1500 bytes de la respuesta literal
+{
+    "Meta Data": {
+        "1. Information": "Daily Prices (open, high, low, close) and Volumes",
+        "2. Symbol": "IBM",
+        "3. Last Refreshed": "2026-11-25",
+        "4. Output Size": "Compact",
+        "5. Time Zone": "US/Eastern"
+    },
+    "Time Series (Daily)": {
+        "2026-11-25": {
+            "1. open": "233.5100",
+            "2. high": "246.2400",
+            "3. low": "232.1700",
+            "4. close": "243.4700",
+            "5. volume": "5231889"
+        },
+        "2026-11-24": {
+            "1. open": "232.5600",
+            "2. high": "235.9100",
+            "3. low": "231.5950",
+            "4. close": "235.6200",
+            "5. volume": "3203476"
+        },
+        "2026-11-23": {
+            "1. open": "230.5700",
+            "2. high": "235.1000",
+            "3. low": "228.6000",
+            "4. close": "233.0000",
+            "5. volume": "4495167"
+        },
+        "2026-11-20": {
+            "1. open": "224.5950",
+            "2. high": "233.0000",
+            "3. low": "223.3900",
+            "4. close": "224.4400",
+            "5. volume": "7835748"
+        },
+        "2026-11-19": {
+            "1. open": "229.2200",
+            "2. high": "232.7700",
+            "3. low": "222.7437",
+            "4. close": "223.8800",
+            "5. volume": "3774950"
+        },
+        "2026-11-18": {
+            "1. open": "230.4500",
+            "2. high": "232.8450",
+            "3. low": "228.4000",
+            "4. close": "228.5300",
+     
