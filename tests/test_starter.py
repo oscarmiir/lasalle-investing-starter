@@ -74,3 +74,44 @@ def test_bundled_snapshot_and_api_are_ready_without_download():
     assert nulls >= 0
     payload = validate_payload(json.loads((ROOT / "artifacts/predictions.json").read_text()))
     assert len(payload["predictions"]) == 9
+
+
+def test_config_fallback_without_tomllib_matches_tomllib():
+    import common
+    text = (ROOT / "config.toml").read_text(encoding="utf-8")
+    import tomllib
+    real = tomllib.loads(text)
+    import builtins
+    original_import = builtins.__import__
+
+    def no_tomllib(name, *args, **kwargs):
+        if name == "tomllib":
+            raise ModuleNotFoundError(name)
+        return original_import(name, *args, **kwargs)
+
+    builtins.__import__ = no_tomllib
+    try:
+        assert common._read_config(text) == real
+    finally:
+        builtins.__import__ = original_import
+
+
+def test_publication_gate_requires_a_passed_etl_and_the_same_features(tmp_path):
+    from publish import check_quality
+    features_file = tmp_path / "features.csv"
+    features_file.write_text("ticker\nAAA\n")
+    digest = hashlib.sha256(features_file.read_bytes()).hexdigest()
+    quality = tmp_path / "quality.json"
+    quality.write_text(json.dumps({"status": "failed", "error": "huella", "features_sha256": digest}))
+    with pytest.raises(ValueError, match="no superó"):
+        check_quality(quality, features_file)
+    quality.write_text(json.dumps({"status": "ok", "features_sha256": "otro"}))
+    with pytest.raises(ValueError, match="no coincide"):
+        check_quality(quality, features_file)
+    quality.write_text(json.dumps({"status": "ok", "features_sha256": digest}))
+    assert check_quality(quality, features_file)["status"] == "ok"
+
+
+def test_published_artifact_matches_validated_features():
+    from publish import check_quality
+    check_quality(ROOT / "reports/quality.json", ROOT / "lake/curated/features.csv")

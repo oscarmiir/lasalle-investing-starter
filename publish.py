@@ -2,6 +2,8 @@
 import argparse
 import csv
 import hashlib
+import json
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from common import ROOT, HORIZONS, FEATURES, finite, save_json, settings, utc_now, validate_payload
@@ -35,8 +37,28 @@ def build(student, tickers, rows, scorer=score):
     return payload, {"snapshot_date": next(iter(snapshots)), "universe": tickers, "candidates": candidates}
 
 
-def publish(config=ROOT / "config.toml", features=ROOT / "lake/curated/features.csv", output=ROOT):
+def check_quality(quality, features, max_age_days=None):
+    """Puerta de publicación: solo se publica una entrada validada por el ETL y sin cambios posteriores."""
+    try:
+        report = json.loads(Path(quality).read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        raise ValueError(f"No se puede leer el informe de calidad {quality}.") from error
+    if report.get("status") != "ok":
+        raise ValueError(f"El último ETL no superó los controles ({report.get('error', 'estado ' + str(report.get('status')))}). No se publica.")
+    if report.get("features_sha256") != hashlib.sha256(Path(features).read_bytes()).hexdigest():
+        raise ValueError("features.csv no coincide con el validado por el ETL. Vuelve a ejecutar el ETL.")
+    if max_age_days is not None:
+        age = (datetime.now(timezone.utc).date() - date.fromisoformat(report["snapshot_date"])).days
+        if age > max_age_days:
+            raise ValueError(f"El corte {report['snapshot_date']} tiene {age} días (máximo {max_age_days}). Descarga datos nuevos.")
+    return report
+
+
+def publish(config=ROOT / "config.toml", features=ROOT / "lake/curated/features.csv", output=ROOT,
+            quality=ROOT / "reports/quality.json", max_age_days=None):
     student, tickers = settings(config)
+    if quality is not None:
+        check_quality(quality, features, max_age_days)
     with Path(features).open(encoding="utf-8", newline="") as stream:
         payload, report = build(student, tickers, list(csv.DictReader(stream)))
     # Validar todo antes de sustituir la última salida correcta.
@@ -53,5 +75,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "config.toml")
     parser.add_argument("--features", type=Path, default=ROOT / "lake/curated/features.csv")
+    parser.add_argument("--quality", type=Path, default=ROOT / "reports/quality.json")
+    parser.add_argument("--max-age-days", type=int, help="Para publicar un ciclo nuevo: rechaza un corte más antiguo")
     args = parser.parse_args()
-    publish(args.config, args.features)
+    try:
+        publish(args.config, args.features, quality=args.quality, max_age_days=args.max_age_days)
+    except ValueError as error:
+        raise SystemExit(f"Publicación detenida; se conserva la última salida correcta. Motivo: {error}")
