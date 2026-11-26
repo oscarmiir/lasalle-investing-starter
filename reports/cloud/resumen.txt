@@ -1,0 +1,16 @@
+== Lake en R2 (bucket lasalle-ra1-lake) 2026-11-26T19:11:46Z
+-- 1. Escritura de raw (no sobrescribe; compara huellas)
+raw -> s3://lasalle-ra1-lake/raw/: 0 subidos, 43 ya presentes con la misma huella
+   OK  subida de raw
+-- 2. ETL leyendo raw desde R2 y escribiendo clean/curated/quarantine en R2
+   OK  ETL contra R2
+   {"status": "ok", "read": 9190, "rejected": 0, "rejected_by_reason": {}, "valid": 9190, "superseded_by_newer_download": 0, "clean": 9190, "companies": 15, "snapshot_date": "2026-11-25"}
+   OK  features.csv desde R2 idéntico al local
+   relectura Parquet en R2: {'clean/prices': 9190, 'quarantine/rejected': 0, 'curated/features_daily': 9190, 'curated/features': 15}
+   120 objetos, 0.98 MB bajo s3://lasalle-ra1-lake/lake/
+-- 3. Recuperación: descarga de raw desde R2, verificación de huellas y ETL local con lo recuperado
+Recuperados 43 objetos en reports\cloud\recuperado; 40 originales verificados con su manifiesto; 0 errores
+   OK  recuperación con huellas verificadas
+   OK  ETL local con el raw recuperado
+   OK  features.csv reconstruido idéntico
+== Resultado: 0 fallos

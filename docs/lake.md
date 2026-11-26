@@ -78,6 +78,25 @@ partición (las estadísticas mín./máx. de Parquet permiten saltar bloques al 
 Límite reconocido: con este volumen, una tabla sin particionar sería igual de buena; el particionado se elige
 por escalabilidad y mantenimiento, no por velocidad actual.
 
+## Lake en la nube: Cloudflare R2 (ampliación)
+
+- **Servicio:** Cloudflare R2, almacenamiento de objetos compatible con la API de S3. Plan gratuito con
+  10 GB al mes de almacenamiento y sin coste de salida de datos. El proyecto ocupa menos de 3 MB.
+- **Bucket:** `lasalle-ra1-lake`. **Prefijos:** `raw/<fuente>/<descarga>/<TICKER>.json` (originales y
+  manifiestos) y `lake/clean`, `lake/curated`, `lake/quarantine` (Parquet escritos por el ETL).
+- **Credenciales:** token de cuenta de R2 limitado a este bucket (lectura y escritura de objetos). Se guardan
+  en `.env`, que Git ignora; en el repositorio solo está `.env.example` con los nombres de las variables
+  (`R2_ENDPOINT`, `R2_BUCKET`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`).
+- **Escritura de raw:** `lake_cloud.py subir`. No sobrescribe un original: si el objeto ya existe compara la
+  huella SHA-256 guardada en sus metadatos y se detiene si es distinta.
+- **Lectura desde el ETL:** el servicio `etl-cloud` de `compose.yaml` añade el conector S3A de Hadoop
+  (`hadoop-aws` 3.3.4) a la misma imagen de Spark. El ETL lee raw con `--raw-root s3a://...`, verifica las
+  huellas, escribe las tablas en `s3a://lasalle-ra1-lake/lake/` y las relee allí.
+- **Recuperación:** `lake_cloud.py recuperar --destino <carpeta>` descarga raw y comprueba cada fichero con su
+  manifiesto. Con lo recuperado el ETL local reconstruye las mismas salidas.
+
+`scripts/prueba_r2.sh` hace las tres comprobaciones y deja la evidencia en `reports/cloud/resumen.txt`.
+
 ## Reproceso y recuperación
 
 `scripts/pruebas_calidad.sh` demuestra con evidencias en `reports/pruebas/resumen.txt`:
