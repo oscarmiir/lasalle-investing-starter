@@ -1,0 +1,157 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T16:48:37.435136+00:00",
+  "status": "ok",
+  "raw_root": "/workspace/tests/fixtures/filas_invalidas",
+  "lake_root": "/tmp/lake_filas_invalidas",
+  "universe": [
+    "MU",
+    "AMD",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "4 ficheros con huella SHA-256 verificada"
+    },
+    {
+      "name": "filas_rechazadas",
+      "action": "RECHAZAR",
+      "status": "ok",
+      "detail": {
+        "fin_de_semana": 1,
+        "sesion_incompleta": 1,
+        "cierre_nulo": 1,
+        "precio_no_positivo": 1,
+        "volumen_negativo": 1,
+        "fuera_de_rango": 1,
+        "fecha_futura": 1,
+        "simbolo_distinto": 90,
+        "duplicado_con_precios_distintos": 2,
+        "duplicado_identico": 1
+      }
+    },
+    {
+      "name": "saltos_y_huecos",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "0 avisos anotados en warnings"
+    },
+    {
+      "name": "universo_con_datos",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "historia_minima",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "datos_al_dia",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "frescura_del_corte",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 1 días"
+    },
+    {
+      "name": "senales_completas",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "todas las señales calculadas"
+    },
+    {
+      "name": "relectura_parquet",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": {
+        "escritas": {
+          "clean/prices": 266,
+          "quarantine/rejected": 100,
+          "curated/features_daily": 266,
+          "curated/features": 3
+        },
+        "releidas": {
+          "clean/prices": 266,
+          "quarantine/rejected": 100,
+          "curated/features_daily": 266,
+          "curated/features": 3
+        }
+      }
+    }
+  ],
+  "warnings": [],
+  "downloads": [
+    {
+      "download_id": "20261126T000000000000Z",
+      "files": 4,
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "counts": {
+    "read": 366,
+    "rejected": 100,
+    "rejected_by_reason": {
+      "fin_de_semana": 1,
+      "sesion_incompleta": 1,
+      "cierre_nulo": 1,
+      "precio_no_positivo": 1,
+      "volumen_negativo": 1,
+      "fuera_de_rango": 1,
+      "fecha_futura": 1,
+      "simbolo_distinto": 90,
+      "duplicado_con_precios_distintos": 2,
+      "duplicado_identico": 1
+    },
+    "valid": 266,
+    "superseded_by_newer_download": 0,
+    "clean": 266
+  },
+  "coverage": [
+    {
+      "ticker": "AMD",
+      "sessions": 88,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "GDX",
+      "sessions": 90,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MU",
+      "sessions": 88,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    }
+  ],
+  "cut_age_days": 1,
+  "parquet_reread": {
+    "clean/prices": 266,
+    "quarantine/rejected": 100,
+    "curated/features_daily": 266,
+    "curated/features": 3
+  },
+  "snapshot_date": "2026-11-25",
+  "companies": 3,
+  "features_sha256": "05d1731f00ea8281b5cf6251581b747809ec377e335f251cc8421ef4a2c9a9cd"
+}

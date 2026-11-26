@@ -1,0 +1,25 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T16:49:44.256302+00:00",
+  "status": "failed",
+  "raw_root": "/workspace/tests/fixtures/fichero_ausente",
+  "lake_root": "/tmp/lake_fichero_ausente",
+  "universe": [
+    "MU",
+    "AMD",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "failed",
+      "detail": [
+        "20261126T000000000000Z/AMD.json: falta_el_fichero"
+      ]
+    }
+  ],
+  "warnings": [],
+  "error": "Originales raw ausentes, alterados o ilegibles."
+}

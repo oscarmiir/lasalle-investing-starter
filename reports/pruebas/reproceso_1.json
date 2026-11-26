@@ -1,0 +1,335 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T16:42:20.788120+00:00",
+  "status": "ok",
+  "raw_root": "/workspace/lake/raw/yahoo",
+  "lake_root": "/workspace/lake",
+  "universe": [
+    "MU",
+    "AMD",
+    "SOXL",
+    "PLTR",
+    "APP",
+    "CRWD",
+    "IONQ",
+    "OKLO",
+    "RKLB",
+    "ASTS",
+    "HOOD",
+    "AFRM",
+    "COIN",
+    "MRNA",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "25 ficheros con huella SHA-256 verificada"
+    },
+    {
+      "name": "filas_rechazadas",
+      "action": "RECHAZAR",
+      "status": "ok",
+      "detail": "ninguna fila rechazada"
+    },
+    {
+      "name": "saltos_y_huecos",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "2 avisos anotados en warnings"
+    },
+    {
+      "name": "universo_con_datos",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "15 tickers correctos"
+    },
+    {
+      "name": "historia_minima",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "15 tickers correctos"
+    },
+    {
+      "name": "datos_al_dia",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "15 tickers correctos"
+    },
+    {
+      "name": "senales_completas",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "todas las señales calculadas"
+    },
+    {
+      "name": "relectura_parquet",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": {
+        "escritas": {
+          "clean/prices": 9190,
+          "quarantine/rejected": 0,
+          "curated/features_daily": 9190,
+          "curated/features": 15
+        },
+        "releidas": {
+          "clean/prices": 9190,
+          "quarantine/rejected": 0,
+          "curated/features_daily": 9190,
+          "curated/features": 15
+        }
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "salto_diario",
+      "ticker": "MRNA",
+      "date": "2026-08-19",
+      "daily_return": 1.7697
+    },
+    {
+      "type": "salto_diario",
+      "ticker": "SOXL",
+      "date": "2025-04-09",
+      "daily_return": 0.5479
+    }
+  ],
+  "downloads": [
+    {
+      "download_id": "20261023T182525773928Z",
+      "files": 10,
+      "requested_start": "2026-04-01",
+      "requested_end": "2026-10-22"
+    },
+    {
+      "download_id": "20261126T162237261455Z",
+      "files": 15,
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "counts": {
+    "read": 9190,
+    "rejected": 0,
+    "rejected_by_reason": {},
+    "valid": 9190,
+    "superseded_by_newer_download": 0,
+    "clean": 9190
+  },
+  "coverage": [
+    {
+      "ticker": "AAPL",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "AFRM",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "AMD",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "AMZN",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "APP",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "ASTS",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "COIN",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "CRWD",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "GDX",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "GOOGL",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "HOOD",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "IONQ",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "JPM",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "META",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MRNA",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MSFT",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MU",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "NFLX",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "NVDA",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "OKLO",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "PLTR",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "RKLB",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "SOXL",
+      "sessions": 518,
+      "first": "2024-11-01",
+      "last": "2026-11-25",
+      "download_id": "20261126T162237261455Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "TSLA",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "V",
+      "sessions": 142,
+      "first": "2026-04-01",
+      "last": "2026-10-22",
+      "download_id": "20261023T182525773928Z",
+      "currency": "USD"
+    }
+  ],
+  "parquet_reread": {
+    "clean/prices": 9190,
+    "quarantine/rejected": 0,
+    "curated/features_daily": 9190,
+    "curated/features": 15
+  },
+  "snapshot_date": "2026-11-25",
+  "companies": 15,
+  "features_sha256": "6f3c424dcd18f443ea05d57e453b47a0813fb02c601cb18107cb9d1c24c72e2d"
+}

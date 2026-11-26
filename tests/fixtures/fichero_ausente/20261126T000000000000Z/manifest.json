@@ -1,0 +1,36 @@
+{
+  "source": "Fixture de prueba derivado de 20261126T162237261455Z",
+  "files": [
+    {
+      "ticker": "MU",
+      "file": "MU.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?interval=1d&period1=1730419200&period2=1795651200",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-26T16:22:37.663490+00:00",
+      "sha256": "571c01ea719146cd24dd28c717e30ff50e775a6f4e1bb3f459e27b98ad87abe8",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "AMD",
+      "file": "AMD.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMD?interval=1d&period1=1730419200&period2=1795651200",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-26T16:22:37.888753+00:00",
+      "sha256": "048be0af4a971804a7c01e7ac3262a28952b84daa6e9c2030e430f0cac5f3bd0",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "GDX",
+      "file": "GDX.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/GDX?interval=1d&period1=1730419200&period2=1795651200",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-26T16:22:41.063245+00:00",
+      "sha256": "88e84539fbafbd40d666645a910818f03666f6cab801185cbef6025ce580a9ab",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "note": "Copia de prueba con errores inducidos; no es un original del proveedor."
+}

@@ -1,0 +1,25 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T16:49:08.546752+00:00",
+  "status": "failed",
+  "raw_root": "/workspace/tests/fixtures/raw_alterado",
+  "lake_root": "/tmp/lake_raw_alterado",
+  "universe": [
+    "MU",
+    "AMD",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "failed",
+      "detail": [
+        "20261126T000000000000Z/GDX.json: huella_sha256_distinta"
+      ]
+    }
+  ],
+  "warnings": [],
+  "error": "Originales raw ausentes, alterados o ilegibles."
+}

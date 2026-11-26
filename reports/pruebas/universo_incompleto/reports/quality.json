@@ -1,0 +1,87 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T16:49:22.779556+00:00",
+  "status": "failed",
+  "raw_root": "/workspace/tests/fixtures/universo_incompleto",
+  "lake_root": "/tmp/lake_universo_incompleto",
+  "universe": [
+    "MU",
+    "AMD",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "2 ficheros con huella SHA-256 verificada"
+    },
+    {
+      "name": "filas_rechazadas",
+      "action": "RECHAZAR",
+      "status": "ok",
+      "detail": "ninguna fila rechazada"
+    },
+    {
+      "name": "saltos_y_huecos",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "0 avisos anotados en warnings"
+    },
+    {
+      "name": "universo_con_datos",
+      "action": "DETENER",
+      "status": "failed",
+      "detail": "GDX: sin datos"
+    },
+    {
+      "name": "historia_minima",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "datos_al_dia",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    }
+  ],
+  "warnings": [],
+  "downloads": [
+    {
+      "download_id": "20261126T000000000000Z",
+      "files": 2,
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "counts": {
+    "read": 180,
+    "rejected": 0,
+    "rejected_by_reason": {},
+    "valid": 180,
+    "superseded_by_newer_download": 0,
+    "clean": 180
+  },
+  "coverage": [
+    {
+      "ticker": "AMD",
+      "sessions": 90,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MU",
+      "sessions": 90,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    }
+  ],
+  "error": "El universo configurado no tiene datos suficientes o actuales."
+}
