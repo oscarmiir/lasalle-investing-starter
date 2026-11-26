@@ -27,6 +27,7 @@ MIN_SESSIONS = 61         # return_60 necesita 61 sesiones válidas
 MAX_STALE_DAYS = 5        # días naturales entre la última sesión de un ticker y el corte común
 JUMP_WARNING = 0.5        # |retorno diario| que se marca para revisión
 GAP_WARNING_DAYS = 5      # días naturales entre sesiones consecutivas que se marcan como hueco
+CROSS_TOLERANCE = 0.01    # diferencia relativa máxima entre el cierre de Yahoo y el de la segunda fuente
 
 MANIFEST_SCHEMA = T.StructType([
     T.StructField("source", T.StringType()),
@@ -68,6 +69,13 @@ CHART_SCHEMA = T.StructType([T.StructField("chart", T.StructType([
 ]))])
 
 
+NASDAQ_SCHEMA = T.StructType([T.StructField("data", T.StructType([
+    T.StructField("symbol", T.StringType()),
+    T.StructField("tradesTable", T.StructType([T.StructField("rows", T.ArrayType(T.StructType([
+        T.StructField("date", T.StringType()), T.StructField("close", T.StringType())])))])),
+]))])
+
+
 class QualityError(Exception):
     """Un control de tipo DETENER ha fallado."""
 
@@ -76,28 +84,44 @@ def not_finite(column):
     return F.isnan(column) | column.isin(float("inf"), float("-inf"))
 
 
-def extract(spark, raw_root, checks):
-    """Lee manifiestos y originales; verifica huellas y estructura antes de transformar."""
+def read_raw_files(spark, raw_root, label):
+    """Manifiestos y originales de una fuente, unidos por (descarga, fichero) y con la huella recalculada."""
     manifests = (spark.read.option("multiLine", True).schema(MANIFEST_SCHEMA).json(f"{raw_root}/*/manifest.json")
                  .withColumn("download_id", F.element_at(F.split(F.input_file_name(), "/"), -2)))
     empty = manifests.filter(F.col("files").isNull() | (F.size("files") < 1)).select("download_id").collect()
     if empty:
-        checks.append({"name": "integridad_raw", "action": "DETENER", "status": "failed",
-                       "detail": [f"{row.download_id}/manifest.json: manifiesto_vacio_o_ilegible" for row in empty]})
-        raise QualityError("Hay manifiestos vacíos o ilegibles.")
+        raise QualityError(f"Hay manifiestos vacíos o ilegibles en {label}: {', '.join(r.download_id for r in empty)}.")
     entries = manifests.select("download_id", "source", F.explode("files").alias("f")).select("download_id", "source", "f.*")
     raw = (spark.read.format("binaryFile").load(f"{raw_root}/*/*.json")
            .withColumn("download_id", F.element_at(F.split("path", "/"), -2))
            .withColumn("file", F.element_at(F.split("path", "/"), -1))
            .filter(F.col("file") != "manifest.json")
            .select("download_id", "file", "content", F.sha2("content", 256).alias("sha256_actual")))
-    files = entries.join(raw, ["download_id", "file"], "left")
+    return entries.join(raw, ["download_id", "file"], "left")
+
+
+def raw_problem(*structure_checks):
+    """Motivo de DETENER por fichero: ausente, alterado o con estructura inesperada."""
+    rule = (F.when(F.col("content").isNull(), "falta_el_fichero")
+            .when(F.lower("sha256") != F.col("sha256_actual"), "huella_sha256_distinta"))
+    for condition, name in structure_checks:
+        rule = rule.when(condition, name)
+    return rule
+
+
+def extract(spark, raw_root, checks):
+    """Lee manifiestos y originales; verifica huellas y estructura antes de transformar."""
+    try:
+        files = read_raw_files(spark, raw_root, "yahoo")
+    except QualityError as error:
+        checks.append({"name": "integridad_raw", "action": "DETENER", "status": "failed", "detail": str(error)})
+        raise
 
     parsed = files.withColumn("doc", F.from_json(F.col("content").cast("string"), CHART_SCHEMA))
     result = F.col("doc.chart.result")[0]
     parsed = parsed.select(
         "download_id", "ticker", "file", "url", "downloaded_at", "requested_start", "requested_end",
-        "sha256", "sha256_actual", F.col("content").isNull().alias("missing"),
+        "sha256", "sha256_actual", "content",
         F.col("doc.chart.error").alias("provider_error"),
         result["meta"]["symbol"].alias("symbol"), result["meta"]["currency"].alias("currency"),
         result["meta"]["exchangeName"].alias("exchange"), result["meta"]["exchangeTimezoneName"].alias("exchange_tz"),
@@ -108,14 +132,13 @@ def extract(spark, raw_root, checks):
         result["indicators"]["quote"][0]["volume"].alias("vols"))
 
     # Controles por fichero (DETENER): un original ausente, alterado o ilegible invalida la ejecución.
-    problems = parsed.select("download_id", "file", F.when(F.col("missing"), "falta_el_fichero")
-                             .when(F.lower("sha256") != F.col("sha256_actual"), "huella_sha256_distinta")
-                             .when(F.col("provider_error").isNotNull(), "error_del_proveedor")
-                             .when(F.col("ts").isNull() | F.col("closes").isNull() | F.col("adjs").isNull(), "estructura_no_reconocida")
-                             .when(F.size("ts") == 0, "serie_vacia")
-                             .when((F.size("ts") != F.size("closes")) | (F.size("ts") != F.size("adjs"))
-                                   | (F.col("vols").isNotNull() & (F.size("ts") != F.size("vols"))), "longitudes_distintas")
-                             .alias("problem")).filter(F.col("problem").isNotNull()).collect()
+    problems = parsed.select("download_id", "file", raw_problem(
+        (F.col("provider_error").isNotNull(), "error_del_proveedor"),
+        (F.col("ts").isNull() | F.col("closes").isNull() | F.col("adjs").isNull(), "estructura_no_reconocida"),
+        (F.size("ts") == 0, "serie_vacia"),
+        ((F.size("ts") != F.size("closes")) | (F.size("ts") != F.size("adjs"))
+         | (F.col("vols").isNotNull() & (F.size("ts") != F.size("vols"))), "longitudes_distintas"),
+    ).alias("problem")).filter(F.col("problem").isNotNull()).collect()
     downloads = [row.asDict() for row in parsed.groupBy("download_id").agg(
         F.count("*").alias("files"), F.min("requested_start").alias("requested_start"),
         F.max("requested_end").alias("requested_end")).orderBy("download_id").collect()]
@@ -180,6 +203,60 @@ def select_latest(rows):
     return rows.join(latest, ["ticker", "download_id"], "inner")
 
 
+def cross_check(spark, check_root, clean, universe, cut, checks, warnings, report):
+    """Validación cruzada con una segunda fuente independiente (Nasdaq.com, cierres sin ajustar).
+
+    IDENTIFICAR: cada sesión cuyo cierre difiere más de CROSS_TOLERANCE; cobertura por ticker.
+    DETENER: el último cierre del corte difiere en ambas fuentes (es el dato que entra en la selección).
+    Si un ticker no está en la segunda fuente (p. ej. bolsas fuera de EE. UU.) se anota y no se detiene.
+    """
+    if not check_root or (not str(check_root).startswith("s3a://") and not Path(check_root).is_dir()):
+        checks.append({"name": "validacion_cruzada", "action": "IDENTIFICAR", "status": "omitido",
+                       "detail": f"sin segunda fuente en {check_root}"})
+        return
+    files = read_raw_files(spark, check_root, "segunda fuente")
+    parsed = files.withColumn("doc", F.from_json(F.col("content").cast("string"), NASDAQ_SCHEMA))
+    problems = parsed.select("download_id", "file", raw_problem(
+        (F.col("doc.data.tradesTable.rows").isNull(), "estructura_no_reconocida"),
+        (F.upper("doc.data.symbol") != F.col("ticker"), "simbolo_distinto"),
+    ).alias("problem")).filter(F.col("problem").isNotNull()).collect()
+    if problems:
+        checks.append({"name": "integridad_raw_segunda_fuente", "action": "DETENER", "status": "failed",
+                       "detail": [f"{p.download_id}/{p.file}: {p.problem}" for p in problems]})
+        raise QualityError("Originales de la segunda fuente ausentes, alterados o ilegibles.")
+    second = select_latest(parsed.select("download_id", "ticker", "downloaded_at", F.explode("doc.data.tradesTable.rows").alias("r"))
+                           .select("download_id", "ticker", "downloaded_at", F.to_date("r.date", "MM/dd/yyyy").alias("date"),
+                                   F.regexp_replace("r.close", "[$,]", "").cast("double").alias("close_2")))
+    second = second.filter(F.col("close_2") > 0).select("ticker", "date", "close_2")
+    joined = (clean.filter(F.col("ticker").isin(universe)).select("ticker", "date", "close")
+              .join(second, ["ticker", "date"], "full_outer")
+              .withColumn("diff", F.abs(F.col("close") / F.col("close_2") - 1)))
+    stats = {r.ticker: r.asDict() for r in joined.groupBy("ticker").agg(
+        F.count(F.when(F.col("diff").isNotNull(), 1)).alias("compared"),
+        F.count(F.when(F.col("diff") > CROSS_TOLERANCE, 1)).alias("different"),
+        F.count(F.when(F.col("close_2").isNull(), 1)).alias("only_primary"),
+        F.count(F.when(F.col("close").isNull(), 1)).alias("only_second"),
+        F.max("diff").alias("max_diff")).collect()}
+    report["cross_check"] = {"tolerance": CROSS_TOLERANCE, "source": str(check_root),
+                             "by_ticker": [{**stats[t], "max_diff": round(stats[t]["max_diff"] or 0, 6)} if t in stats
+                                           else {"ticker": t, "compared": 0} for t in universe]}
+    for row in joined.filter(F.col("diff") > CROSS_TOLERANCE).orderBy("ticker", "date").limit(50).collect():
+        warnings.append({"type": "cierre_distinto_entre_fuentes", "ticker": row.ticker, "date": row.date.isoformat(),
+                         "yahoo": row.close, "segunda_fuente": row.close_2, "diff": round(row.diff, 4)})
+    uncovered = [t for t in universe if not stats.get(t, {}).get("compared")]
+    last = {r.ticker: r for r in joined.join(clean.groupBy("ticker").agg(F.max("date").alias("date")), ["ticker", "date"]).collect()}
+    bad_last = [t for t, r in last.items() if r.diff is not None and r.diff > CROSS_TOLERANCE]
+    compared = sum(s["compared"] for s in stats.values())
+    different = sum(s["different"] for s in stats.values())
+    checks.append({"name": "validacion_cruzada", "action": "IDENTIFICAR", "status": "ok",
+                   "detail": f"{compared} cierres comparados, {different} fuera de tolerancia; sin cobertura: {', '.join(uncovered) or 'ninguno'}"})
+    checks.append({"name": "ultimo_cierre_confirmado", "action": "DETENER", "status": "failed" if bad_last else "ok",
+                   "detail": f"{', '.join(bad_last)}: el último cierre no coincide entre fuentes" if bad_last
+                             else f"último cierre confirmado en {len(last) - len(uncovered)} tickers"})
+    if bad_last:
+        raise QualityError("El último cierre no coincide entre las dos fuentes.")
+
+
 def features(clean):
     ordered = Window.partitionBy("ticker").orderBy("date")
     frame = (clean.withColumn("daily_return", F.col("adjclose") / F.lag("adjclose", 1).over(ordered) - 1)
@@ -191,7 +268,7 @@ def features(clean):
     return frame
 
 
-def run(raw_root, lake_root, out_root, config):
+def run(raw_root, lake_root, out_root, config, check_root=None):
     student, universe = settings(config)
     out_root = Path(out_root)
     checks, warnings = [], []
@@ -242,6 +319,8 @@ def run(raw_root, lake_root, out_root, config):
                            "detail": f"{', '.join(bad)}: {text}" if bad else f"{len(universe)} tickers correctos"})
         if missing or short or stale:
             raise QualityError("El universo configurado no tiene datos suficientes o actuales.")
+
+        cross_check(spark, check_root, clean, universe, cut, checks, warnings, report)
 
         # IDENTIFICAR: corte alejado del final pedido a la descarga o de la fecha de ejecución.
         requested_end = date.fromisoformat(clean.filter(F.col("ticker").isin(universe))
@@ -310,5 +389,7 @@ if __name__ == "__main__":
     parser.add_argument("--lake-root", default=str(ROOT / "lake"), help="Destino de clean, curated y quarantine (local o s3a://)")
     parser.add_argument("--out-root", default=str(ROOT), help="Carpeta local para los CSV del publicador y reports/")
     parser.add_argument("--config", default=str(ROOT / "config.toml"))
+    parser.add_argument("--check-root", default=str(ROOT / "lake/raw/nasdaq"),
+                        help="Raw de la segunda fuente para la validación cruzada ('' para omitirla)")
     args = parser.parse_args()
-    run(args.raw_root, args.lake_root, args.out_root, args.config)
+    run(args.raw_root, args.lake_root, args.out_root, args.config, args.check_root)
