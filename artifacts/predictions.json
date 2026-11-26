@@ -1,49 +1,49 @@
 {
-  "student": "Alumno de ejemplo",
-  "generated_at": "2026-10-23T18:36:06.228901+00:00",
+  "student": "Òscar Mir Sala",
+  "generated_at": "2026-11-26T16:23:57.995602+00:00",
   "predictions": [
     {
-      "ticker": "V",
+      "ticker": "MRNA",
       "horizon": "1W",
       "rank": 1
     },
     {
-      "ticker": "TSLA",
+      "ticker": "PLTR",
       "horizon": "1W",
       "rank": 2
     },
     {
-      "ticker": "AAPL",
+      "ticker": "AFRM",
       "horizon": "1W",
       "rank": 3
     },
     {
-      "ticker": "V",
+      "ticker": "APP",
       "horizon": "1M",
       "rank": 1
     },
     {
-      "ticker": "MSFT",
+      "ticker": "MRNA",
       "horizon": "1M",
       "rank": 2
     },
     {
-      "ticker": "AAPL",
+      "ticker": "GDX",
       "horizon": "1M",
       "rank": 3
     },
     {
-      "ticker": "MSFT",
+      "ticker": "MRNA",
       "horizon": "3M",
       "rank": 1
     },
     {
-      "ticker": "TSLA",
+      "ticker": "APP",
       "horizon": "3M",
       "rank": 2
     },
     {
-      "ticker": "V",
+      "ticker": "CRWD",
       "horizon": "3M",
       "rank": 3
     }
