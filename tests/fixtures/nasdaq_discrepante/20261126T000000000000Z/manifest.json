@@ -1,0 +1,39 @@
+{
+  "source": "Fixture de prueba derivado de 20261126T165940730737Z",
+  "files": [
+    {
+      "ticker": "MU",
+      "file": "MU.json",
+      "url": "https://api.nasdaq.com/api/quote/MU/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:41.373110+00:00",
+      "sha256": "30c186d771d5f740e87425fa0eafab6b8da4951e6a66940350bebb145c4cbb19",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "AMD",
+      "file": "AMD.json",
+      "url": "https://api.nasdaq.com/api/quote/AMD/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:42.392318+00:00",
+      "sha256": "a0a76d4a200ca99975ee671e2bfeb43de9006a725cd66a5c22e07bb2948623fc",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "GDX",
+      "file": "GDX.json",
+      "url": "https://api.nasdaq.com/api/quote/GDX/historical?assetclass=etf&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "etf",
+      "downloaded_at": "2026-11-26T16:59:56.221341+00:00",
+      "sha256": "fb089feb83d1968eae8b61d09da93d39e2be52846e78c898998020f3b05134f9",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "note": "Copia de prueba con el último cierre alterado; no es un original del proveedor."
+}

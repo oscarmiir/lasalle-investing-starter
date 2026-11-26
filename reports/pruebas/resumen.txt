@@ -1,4 +1,4 @@
-== Pruebas de calidad 2026-11-26T16:48:32Z
+== Pruebas de calidad 2026-11-26T17:11:31Z
 -- filas_invalidas: {"status": "ok", "read": 366, "rejected": 100, "rejected_by_reason": {"fin_de_semana": 1, "sesion_incompleta": 1, "cierre_nulo": 1, "precio_no_positivo": 1, "volumen_negativo": 1, "fuera_de_rango": 1, "fecha_futura": 1, "simbolo_distinto": 90, "duplicado_con_precios_distintos": 2, "duplicado_identico": 1}, "valid": 266, "superseded_by_newer_download": 0, "clean": 266, "companies": 3, "snapshot_date": "2026-11-25"}
    OK  código de salida del ETL
 -- raw_alterado: {"status": "failed", "error": "Originales raw ausentes, alterados o ilegibles."}
@@ -7,9 +7,11 @@
    OK  código de salida del ETL
 -- fichero_ausente: {"status": "failed", "error": "Originales raw ausentes, alterados o ilegibles."}
    OK  código de salida del ETL
+-- nasdaq_discrepante: {"status": "failed", "error": "El último cierre no coincide entre las dos fuentes."}
+   OK  código de salida del ETL
    OK  la entrada real del publicador no cambia con las pruebas
 -- Puerta del publicador con el informe fallido de raw_alterado:
-   Publicaci�n detenida; se conserva la �ltima salida correcta. Motivo: El �ltimo ETL no super� los controles (Originales raw ausentes, alterados o ilegibles.). No se publica.
+   Publicación detenida; se conserva la última salida correcta. Motivo: El último ETL no superó los controles (Originales raw ausentes, alterados o ilegibles.). No se publica.
    OK  publish.py se niega a publicar
    OK  artifacts/predictions.json sin cambios
 -- Reproceso: dos ejecuciones seguidas del ETL real con el mismo raw

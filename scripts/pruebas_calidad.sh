@@ -22,10 +22,11 @@ raw_before=$(raw_fingerprint)
 artifact_before=$(sha artifacts/predictions.json)
 features_before=$(sha lake/curated/features.csv)
 
-run_case() {  # caso, código esperado
+run_case() {  # caso, código esperado, [raw principal], [segunda fuente]
   rm -rf "$OUT/$1"
-  docker compose run --rm etl --raw-root "/workspace/tests/fixtures/$1" --lake-root "/tmp/lake_$1" \
-    --out-root "/workspace/$OUT/$1" --config /workspace/tests/fixtures/config_fixture.toml > "$OUT/$1.log" 2>&1
+  docker compose run --rm etl --raw-root "/workspace/${3:-tests/fixtures/$1}" --lake-root "/tmp/lake_$1" \
+    --out-root "/workspace/$OUT/$1" --config /workspace/tests/fixtures/config_fixture.toml \
+    --check-root "/workspace/${4:-lake/raw/nasdaq}" > "$OUT/$1.log" 2>&1
   local code=$?
   say "-- $1: $(grep -E '^\{"status"' "$OUT/$1.log" | tail -n 1)"
   expect "$code" "$2" "código de salida del ETL"
@@ -34,6 +35,7 @@ run_case filas_invalidas 0
 run_case raw_alterado 1
 run_case universo_incompleto 1
 run_case fichero_ausente 1
+run_case nasdaq_discrepante 1 tests/fixtures/filas_invalidas tests/fixtures/nasdaq_discrepante
 expect "$(sha lake/curated/features.csv)" "$features_before" "la entrada real del publicador no cambia con las pruebas"
 
 say "-- Puerta del publicador con el informe fallido de raw_alterado:"

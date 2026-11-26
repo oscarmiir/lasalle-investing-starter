@@ -9,6 +9,7 @@ Casos (cada uno en tests/fixtures/<caso>/<descarga>/ con su manifest.json):
   raw_alterado         un original cambia después de calcular su huella: el ETL se DETIENE.
   universo_incompleto  falta un ticker configurado: el ETL se DETIENE y no se actualiza la entrada del publicador.
   fichero_ausente      el manifiesto cita un original que no existe: el ETL se DETIENE.
+  nasdaq_discrepante   segunda fuente cuyo último cierre de MU no coincide con Yahoo: el ETL se DETIENE.
 """
 import copy
 import hashlib
@@ -103,6 +104,30 @@ def main():
     write_case("raw_alterado", copy.deepcopy(base), alter="GDX")
     write_case("universo_incompleto", {t: copy.deepcopy(base[t]) for t in ("MU", "AMD")})
     write_case("fichero_ausente", copy.deepcopy(base), remove="AMD")
+    write_second_source("nasdaq_discrepante", ticker="MU", factor=1.05)
+
+
+def write_second_source(name, ticker, factor):
+    """Copia del raw de Nasdaq con el cierre más reciente de un ticker alterado."""
+    source = sorted((ROOT / "lake/raw/nasdaq").glob("*/manifest.json"))[-1].parent
+    folder = HERE / name / DOWNLOAD
+    shutil.rmtree(HERE / name, ignore_errors=True)
+    folder.mkdir(parents=True)
+    original = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
+    files = []
+    for entry in original["files"]:
+        if entry["ticker"] not in TICKERS:
+            continue
+        doc = json.loads((source / entry["file"]).read_bytes())
+        if entry["ticker"] == ticker:
+            row = doc["data"]["tradesTable"]["rows"][0]  # Nasdaq ordena de más reciente a más antiguo.
+            row["close"] = "${:.2f}".format(float(row["close"].strip("$").replace(",", "")) * factor)
+        body = json.dumps(doc, separators=(",", ":")).encode("utf-8")
+        (folder / entry["file"]).write_bytes(body)
+        files.append({**entry, "sha256": hashlib.sha256(body).hexdigest()})
+    manifest = {"source": "Fixture de prueba derivado de " + source.name, "files": files,
+                "note": "Copia de prueba con el último cierre alterado; no es un original del proveedor."}
+    (folder / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print("Fixtures creados en", HERE)
 
 

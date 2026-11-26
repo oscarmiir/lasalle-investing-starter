@@ -1,0 +1,168 @@
+{
+  "engine": "pyspark",
+  "version": "etl-v2",
+  "generated_at": "2026-11-26T17:12:37.295101+00:00",
+  "status": "failed",
+  "raw_root": "/workspace/tests/fixtures/filas_invalidas",
+  "lake_root": "/tmp/lake_nasdaq_discrepante",
+  "universe": [
+    "MU",
+    "AMD",
+    "GDX"
+  ],
+  "checks": [
+    {
+      "name": "integridad_raw",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "4 ficheros con huella SHA-256 verificada"
+    },
+    {
+      "name": "filas_rechazadas",
+      "action": "RECHAZAR",
+      "status": "ok",
+      "detail": {
+        "fin_de_semana": 1,
+        "sesion_incompleta": 1,
+        "cierre_nulo": 1,
+        "precio_no_positivo": 1,
+        "volumen_negativo": 1,
+        "fuera_de_rango": 1,
+        "fecha_futura": 1,
+        "simbolo_distinto": 90,
+        "duplicado_con_precios_distintos": 2,
+        "duplicado_identico": 1
+      }
+    },
+    {
+      "name": "saltos_y_huecos",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "0 avisos anotados en warnings"
+    },
+    {
+      "name": "universo_con_datos",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "historia_minima",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "datos_al_dia",
+      "action": "DETENER",
+      "status": "ok",
+      "detail": "3 tickers correctos"
+    },
+    {
+      "name": "validacion_cruzada",
+      "action": "IDENTIFICAR",
+      "status": "ok",
+      "detail": "266 cierres comparados, 1 fuera de tolerancia; sin cobertura: ninguno"
+    },
+    {
+      "name": "ultimo_cierre_confirmado",
+      "action": "DETENER",
+      "status": "failed",
+      "detail": "MU: el último cierre no coincide entre fuentes"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "cierre_distinto_entre_fuentes",
+      "ticker": "MU",
+      "date": "2026-11-25",
+      "yahoo": 601.25,
+      "segunda_fuente": 631.31,
+      "diff": 0.0476
+    }
+  ],
+  "downloads": [
+    {
+      "download_id": "20261126T000000000000Z",
+      "files": 4,
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "counts": {
+    "read": 366,
+    "rejected": 100,
+    "rejected_by_reason": {
+      "fin_de_semana": 1,
+      "sesion_incompleta": 1,
+      "cierre_nulo": 1,
+      "precio_no_positivo": 1,
+      "volumen_negativo": 1,
+      "fuera_de_rango": 1,
+      "fecha_futura": 1,
+      "simbolo_distinto": 90,
+      "duplicado_con_precios_distintos": 2,
+      "duplicado_identico": 1
+    },
+    "valid": 266,
+    "superseded_by_newer_download": 0,
+    "clean": 266
+  },
+  "coverage": [
+    {
+      "ticker": "AMD",
+      "sessions": 88,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "GDX",
+      "sessions": 90,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    },
+    {
+      "ticker": "MU",
+      "sessions": 88,
+      "first": "2026-07-22",
+      "last": "2026-11-25",
+      "download_id": "20261126T000000000000Z",
+      "currency": "USD"
+    }
+  ],
+  "cross_check": {
+    "tolerance": 0.01,
+    "source": "/workspace/tests/fixtures/nasdaq_discrepante",
+    "by_ticker": [
+      {
+        "ticker": "MU",
+        "compared": 88,
+        "different": 1,
+        "only_primary": 0,
+        "only_second": 430,
+        "max_diff": 0.047615
+      },
+      {
+        "ticker": "AMD",
+        "compared": 88,
+        "different": 0,
+        "only_primary": 0,
+        "only_second": 430,
+        "max_diff": 1.1e-05
+      },
+      {
+        "ticker": "GDX",
+        "compared": 90,
+        "different": 0,
+        "only_primary": 0,
+        "only_second": 428,
+        "max_diff": 0.0
+      }
+    ]
+  },
+  "error": "El último cierre no coincide entre las dos fuentes."
+}
