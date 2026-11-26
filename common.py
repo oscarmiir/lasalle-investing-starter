@@ -23,10 +23,32 @@ def save_json(path, value):
     temporary.replace(path)
 
 
-def settings(path=ROOT / "config.toml"):
-    import tomllib
+def _strip_comment(line):
+    """Quita un comentario # que esté fuera de una cadena."""
+    quote = None
+    for index, char in enumerate(line):
+        if char in "\"'" and quote in (None, char):
+            quote = None if quote else char
+        elif char == "#" and quote is None:
+            return line[:index]
+    return line
 
-    config = tomllib.loads(Path(path).read_text(encoding="utf-8"))
+
+def _read_config(text):
+    try:
+        import tomllib
+    except ModuleNotFoundError:
+        # La imagen de Spark trae Python 3.8, sin tomllib. config.toml solo usa cadenas y listas de cadenas,
+        # que también son literales de Python: se leen sin dependencias extra. No admite tablas ni booleanos TOML.
+        import ast
+        body = "\n".join(_strip_comment(line) for line in text.splitlines())
+        pairs = re.findall(r"^(\w+)\s*=\s*(.+?)\s*(?=^\w+\s*=|\Z)", body, flags=re.M | re.S)
+        return {key: ast.literal_eval(value) for key, value in pairs}
+    return tomllib.loads(text)
+
+
+def settings(path=ROOT / "config.toml"):
+    config = _read_config(Path(path).read_text(encoding="utf-8"))
     student = config["student"].strip()
     tickers = [item.strip().upper() for item in config["tickers"]]
     if not student or len(student) > 120:

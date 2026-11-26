@@ -9,5 +9,6 @@ services:
       PYTHONPATH: /workspace
     volumes:
       - .:/workspace
-    entrypoint: ["/opt/spark/bin/spark-submit"]
-    command: ["--master", "local[2]", "/workspace/etl_spark.py"]
+    # Los argumentos de "docker compose run --rm etl ..." se pasan a etl_spark.py.
+    entrypoint: ["/opt/spark/bin/spark-submit", "--master", "local[2]", "/workspace/etl_spark.py"]
+    command: []
