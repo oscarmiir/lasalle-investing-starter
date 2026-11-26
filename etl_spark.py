@@ -346,10 +346,15 @@ def run(raw_root, lake_root, out_root, config, check_root=None):
             raise QualityError("Hay señales nulas en el corte.")
 
         # Escritura solo después de validar. Parquet particionado y relectura de comprobación.
+        # Particiones de cardinalidad acotada (ver docs/lake.md y reports/benchmark_particiones.json): por ticker
+        # se generan miles de ficheros pequeños al crecer el universo. Dentro de cada partición se ordena por
+        # ticker y fecha para que las estadísticas de Parquet permitan saltar bloques al filtrar un ticker.
         daily = frame.select("ticker", "date", "adjclose", "daily_return", "return_5", "return_20", "return_60",
-                             "volatility_20", "observations")
-        targets = {"clean/prices": (clean, ["year", "month"]), "quarantine/rejected": (rejected.drop("year", "month"), ["reason"]),
-                   "curated/features_daily": (daily, ["ticker"]), "curated/features": (snapshot, ["snapshot_date"])}
+                             "volatility_20", "observations", F.year("date").alias("year"))
+        targets = {"clean/prices": (clean.sortWithinPartitions("ticker", "date"), ["year", "month"]),
+                   "quarantine/rejected": (rejected.drop("year", "month"), ["reason"]),
+                   "curated/features_daily": (daily.sortWithinPartitions("ticker", "date"), ["year"]),
+                   "curated/features": (snapshot, ["snapshot_date"])}
         expected = {name: df.count() for name, (df, _) in targets.items()}
         for name, (df, partitions) in targets.items():
             df.write.mode("overwrite").partitionBy(*partitions).parquet(f"{lake_root}/{name}")
