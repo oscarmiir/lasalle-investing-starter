@@ -1,0 +1,7 @@
+# Los originales raw se verifican por SHA-256: Git no debe convertir sus finales de línea.
+lake/raw/** -text
+# Entradas y salidas del publicador con huella en reports/: mismos bytes en cualquier sistema.
+lake/clean/*.csv -text
+lake/curated/*.csv -text
+reports/*.json -text
+artifacts/*.json -text

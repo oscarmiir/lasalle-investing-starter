@@ -8,3 +8,6 @@ __pycache__/
 lake/clean/prices/
 lake/curated/features/
 *.log
+lake/quarantine/
+lake/curated/features_daily/
+reports/pruebas/*/lake/
