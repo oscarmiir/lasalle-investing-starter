@@ -1,3 +1,4 @@
-student = "Alumno de ejemplo"
-# Son ejemplos. Puedes sustituirlos por otras acciones con datos disponibles.
-tickers = ["AAPL", "MSFT", "NVDA", "META", "GOOGL", "AMZN", "TSLA", "JPM", "V", "NFLX"]
+student = "Òscar Mir Sala"
+# Universo inicial (fase 1): acciones y ETF de EE. UU. con alta frecuencia histórica de movimientos >= +10 %,
+# repartidos por sectores para no depender de uno solo. Justificación en docs/universo.md.
+tickers = ["MU", "AMD", "SOXL", "PLTR", "APP", "CRWD", "IONQ", "OKLO", "RKLB", "ASTS", "HOOD", "AFRM", "COIN", "MRNA", "GDX"]
