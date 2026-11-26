@@ -1,0 +1,172 @@
+{
+  "source": "Nasdaq.com historical",
+  "files": [
+    {
+      "ticker": "MU",
+      "file": "MU.json",
+      "url": "https://api.nasdaq.com/api/quote/MU/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:41.373110+00:00",
+      "sha256": "be7755d55fec1b702040930dc020f91f309b9ec92e67454e817b80752cc002d5",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "AMD",
+      "file": "AMD.json",
+      "url": "https://api.nasdaq.com/api/quote/AMD/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:42.392318+00:00",
+      "sha256": "a0a76d4a200ca99975ee671e2bfeb43de9006a725cd66a5c22e07bb2948623fc",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "SOXL",
+      "file": "SOXL.json",
+      "url": "https://api.nasdaq.com/api/quote/SOXL/historical?assetclass=etf&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "etf",
+      "downloaded_at": "2026-11-26T16:59:43.241164+00:00",
+      "sha256": "ccd46998d8afca60a33c76efad8e9ae6c4c2609abd141637a54462b7378bb31b",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "PLTR",
+      "file": "PLTR.json",
+      "url": "https://api.nasdaq.com/api/quote/PLTR/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:44.267319+00:00",
+      "sha256": "665e61f4781d415a5937053305724e28e17341e0c7a950ccfdb67e424a36f57e",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "APP",
+      "file": "APP.json",
+      "url": "https://api.nasdaq.com/api/quote/APP/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:45.270153+00:00",
+      "sha256": "f7fbd900e271098921eef30b9443dde9d9d7029bb7722b5cd535e6947956929c",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "CRWD",
+      "file": "CRWD.json",
+      "url": "https://api.nasdaq.com/api/quote/CRWD/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:46.292428+00:00",
+      "sha256": "3b3ba1f3ecedb1107671b65000ce61968be232789d6c53728b53a7ae915452e1",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "IONQ",
+      "file": "IONQ.json",
+      "url": "https://api.nasdaq.com/api/quote/IONQ/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:47.550024+00:00",
+      "sha256": "1f066abf1b8be9fe5c3a0966f4b0338665105e9e7289867cefcf127b5a512677",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "OKLO",
+      "file": "OKLO.json",
+      "url": "https://api.nasdaq.com/api/quote/OKLO/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:48.579207+00:00",
+      "sha256": "4ac6d15e5cb1a25f4dfeda567baac3417fb3b689130d46b4a22d39ac91b1585b",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "RKLB",
+      "file": "RKLB.json",
+      "url": "https://api.nasdaq.com/api/quote/RKLB/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:49.610393+00:00",
+      "sha256": "3391c61bc628925ddbdf907fa895e7116b0c71cd43cf09748312c839d96f2a10",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "ASTS",
+      "file": "ASTS.json",
+      "url": "https://api.nasdaq.com/api/quote/ASTS/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:50.623431+00:00",
+      "sha256": "faad057ab073bdfd41db84e02612cdeeb7b09fd0cb42b860488b691736e1c5be",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "HOOD",
+      "file": "HOOD.json",
+      "url": "https://api.nasdaq.com/api/quote/HOOD/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:51.707462+00:00",
+      "sha256": "ca762045d41d2d05c5ac5194c7941d43abee70f7ecaeb0e4e6afd57c08fb0d0c",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "AFRM",
+      "file": "AFRM.json",
+      "url": "https://api.nasdaq.com/api/quote/AFRM/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:52.729447+00:00",
+      "sha256": "da9bf10f036638ae5262eb17879d38b809b56593a8b09baffc6f4f416cfaae58",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "COIN",
+      "file": "COIN.json",
+      "url": "https://api.nasdaq.com/api/quote/COIN/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:53.757716+00:00",
+      "sha256": "790eef4cbe33b20a74817a96d9793033294af9b285e953773b8c1f87d69476c0",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "MRNA",
+      "file": "MRNA.json",
+      "url": "https://api.nasdaq.com/api/quote/MRNA/historical?assetclass=stocks&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "stocks",
+      "downloaded_at": "2026-11-26T16:59:54.705166+00:00",
+      "sha256": "853958fd7e31e314824a2473c6f4dd84fda1ff8048099bf081f7efe7917cb0a7",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "GDX",
+      "file": "GDX.json",
+      "url": "https://api.nasdaq.com/api/quote/GDX/historical?assetclass=etf&fromdate=2024-11-01&todate=2026-11-25&limit=9999",
+      "provider": "Nasdaq.com historical",
+      "asset_class": "etf",
+      "downloaded_at": "2026-11-26T16:59:56.221341+00:00",
+      "sha256": "fb089feb83d1968eae8b61d09da93d39e2be52846e78c898998020f3b05134f9",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    }
+  ],
+  "not_covered": [],
+  "note": "Acceso web no oficial; cierres sin ajustar; usado para validar Yahoo."
+}
