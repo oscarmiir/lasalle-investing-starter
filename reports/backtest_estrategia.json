@@ -1,0 +1,474 @@
+{
+  "generated_at": "2026-11-26T19:30:11.185974+00:00",
+  "cycles": 95,
+  "period": [
+    "2025-01-31",
+    "2026-11-25"
+  ],
+  "target": 0.1,
+  "universe": [
+    "AFRM",
+    "AMD",
+    "APP",
+    "ASTS",
+    "COIN",
+    "CRWD",
+    "GDX",
+    "HOOD",
+    "IONQ",
+    "MRNA",
+    "MU",
+    "OKLO",
+    "PLTR",
+    "RKLB",
+    "SOXL"
+  ],
+  "base_rate_random_pick": {
+    "1W": {
+      "hits": 254,
+      "picks": 1410,
+      "rate": 0.18,
+      "se": 0.01
+    },
+    "1M": {
+      "hits": 480,
+      "picks": 1365,
+      "rate": 0.352,
+      "se": 0.013
+    },
+    "3M": {
+      "hits": 662,
+      "picks": 1230,
+      "rate": 0.538,
+      "se": 0.014
+    }
+  },
+  "rules": {
+    "comun_v0": {
+      "1W": {
+        "hits": 60,
+        "picks": 282,
+        "pending": 3,
+        "rate": 0.213,
+        "se": 0.024
+      },
+      "1M": {
+        "hits": 96,
+        "picks": 273,
+        "pending": 12,
+        "rate": 0.352,
+        "se": 0.029
+      },
+      "3M": {
+        "hits": 146,
+        "picks": 246,
+        "pending": 39,
+        "rate": 0.593,
+        "se": 0.031
+      }
+    },
+    "momentum_sin_penalizar": {
+      "1W": {
+        "hits": 60,
+        "picks": 282,
+        "pending": 3,
+        "rate": 0.213,
+        "se": 0.024
+      },
+      "1M": {
+        "hits": 94,
+        "picks": 273,
+        "pending": 12,
+        "rate": 0.344,
+        "se": 0.029
+      },
+      "3M": {
+        "hits": 146,
+        "picks": 246,
+        "pending": 39,
+        "rate": 0.593,
+        "se": 0.031
+      }
+    },
+    "probabilidad_10": {
+      "1W": {
+        "hits": 61,
+        "picks": 282,
+        "pending": 3,
+        "rate": 0.216,
+        "se": 0.025
+      },
+      "1M": {
+        "hits": 95,
+        "picks": 273,
+        "pending": 12,
+        "rate": 0.348,
+        "se": 0.029
+      },
+      "3M": {
+        "hits": 163,
+        "picks": 246,
+        "pending": 39,
+        "rate": 0.663,
+        "se": 0.03
+      }
+    },
+    "solo_volatilidad": {
+      "1W": {
+        "hits": 65,
+        "picks": 282,
+        "pending": 3,
+        "rate": 0.23,
+        "se": 0.025
+      },
+      "1M": {
+        "hits": 103,
+        "picks": 273,
+        "pending": 12,
+        "rate": 0.377,
+        "se": 0.029
+      },
+      "3M": {
+        "hits": 115,
+        "picks": 246,
+        "pending": 39,
+        "rate": 0.467,
+        "se": 0.032
+      }
+    },
+    "ret60_sobre_vol": {
+      "1W": {
+        "hits": 58,
+        "picks": 282,
+        "pending": 3,
+        "rate": 0.206,
+        "se": 0.024
+      },
+      "1M": {
+        "hits": 94,
+        "picks": 273,
+        "pending": 12,
+        "rate": 0.344,
+        "se": 0.029
+      },
+      "3M": {
+        "hits": 158,
+        "picks": 246,
+        "pending": 39,
+        "rate": 0.642,
+        "se": 0.031
+      }
+    }
+  },
+  "by_year": {
+    "comun_v0": {
+      "2025-1M": {
+        "hits": 59,
+        "picks": 144,
+        "rate": 0.41,
+        "se": 0.041
+      },
+      "2025-1W": {
+        "hits": 32,
+        "picks": 144,
+        "rate": 0.222,
+        "se": 0.035
+      },
+      "2025-3M": {
+        "hits": 95,
+        "picks": 144,
+        "rate": 0.66,
+        "se": 0.039
+      },
+      "2026-1M": {
+        "hits": 37,
+        "picks": 129,
+        "rate": 0.287,
+        "se": 0.04
+      },
+      "2026-1W": {
+        "hits": 28,
+        "picks": 138,
+        "rate": 0.203,
+        "se": 0.034
+      },
+      "2026-3M": {
+        "hits": 51,
+        "picks": 102,
+        "rate": 0.5,
+        "se": 0.05
+      }
+    },
+    "momentum_sin_penalizar": {
+      "2025-1M": {
+        "hits": 57,
+        "picks": 144,
+        "rate": 0.396,
+        "se": 0.041
+      },
+      "2025-1W": {
+        "hits": 32,
+        "picks": 144,
+        "rate": 0.222,
+        "se": 0.035
+      },
+      "2025-3M": {
+        "hits": 95,
+        "picks": 144,
+        "rate": 0.66,
+        "se": 0.039
+      },
+      "2026-1M": {
+        "hits": 37,
+        "picks": 129,
+        "rate": 0.287,
+        "se": 0.04
+      },
+      "2026-1W": {
+        "hits": 28,
+        "picks": 138,
+        "rate": 0.203,
+        "se": 0.034
+      },
+      "2026-3M": {
+        "hits": 51,
+        "picks": 102,
+        "rate": 0.5,
+        "se": 0.05
+      }
+    },
+    "probabilidad_10": {
+      "2025-1M": {
+        "hits": 46,
+        "picks": 144,
+        "rate": 0.319,
+        "se": 0.039
+      },
+      "2025-1W": {
+        "hits": 31,
+        "picks": 144,
+        "rate": 0.215,
+        "se": 0.034
+      },
+      "2025-3M": {
+        "hits": 106,
+        "picks": 144,
+        "rate": 0.736,
+        "se": 0.037
+      },
+      "2026-1M": {
+        "hits": 49,
+        "picks": 129,
+        "rate": 0.38,
+        "se": 0.043
+      },
+      "2026-1W": {
+        "hits": 30,
+        "picks": 138,
+        "rate": 0.217,
+        "se": 0.035
+      },
+      "2026-3M": {
+        "hits": 57,
+        "picks": 102,
+        "rate": 0.559,
+        "se": 0.049
+      }
+    },
+    "solo_volatilidad": {
+      "2025-1M": {
+        "hits": 65,
+        "picks": 144,
+        "rate": 0.451,
+        "se": 0.041
+      },
+      "2025-1W": {
+        "hits": 33,
+        "picks": 144,
+        "rate": 0.229,
+        "se": 0.035
+      },
+      "2025-3M": {
+        "hits": 91,
+        "picks": 144,
+        "rate": 0.632,
+        "se": 0.04
+      },
+      "2026-1M": {
+        "hits": 38,
+        "picks": 129,
+        "rate": 0.295,
+        "se": 0.04
+      },
+      "2026-1W": {
+        "hits": 32,
+        "picks": 138,
+        "rate": 0.232,
+        "se": 0.036
+      },
+      "2026-3M": {
+        "hits": 24,
+        "picks": 102,
+        "rate": 0.235,
+        "se": 0.042
+      }
+    },
+    "ret60_sobre_vol": {
+      "2025-1M": {
+        "hits": 47,
+        "picks": 144,
+        "rate": 0.326,
+        "se": 0.039
+      },
+      "2025-1W": {
+        "hits": 22,
+        "picks": 144,
+        "rate": 0.153,
+        "se": 0.03
+      },
+      "2025-3M": {
+        "hits": 103,
+        "picks": 144,
+        "rate": 0.715,
+        "se": 0.038
+      },
+      "2026-1M": {
+        "hits": 47,
+        "picks": 129,
+        "rate": 0.364,
+        "se": 0.042
+      },
+      "2026-1W": {
+        "hits": 36,
+        "picks": 138,
+        "rate": 0.261,
+        "se": 0.037
+      },
+      "2026-3M": {
+        "hits": 55,
+        "picks": 102,
+        "rate": 0.539,
+        "se": 0.049
+      }
+    }
+  },
+  "paired_vs_comun_v0": {
+    "momentum_sin_penalizar": {
+      "1W": {
+        "diff": 0.0,
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "cycles": 94,
+        "block_weeks": 1
+      },
+      "1M": {
+        "diff": -0.007,
+        "ci90": [
+          -0.018,
+          0.0
+        ],
+        "cycles": 91,
+        "block_weeks": 4
+      },
+      "3M": {
+        "diff": 0.0,
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "cycles": 82,
+        "block_weeks": 13
+      }
+    },
+    "probabilidad_10": {
+      "1W": {
+        "diff": 0.004,
+        "ci90": [
+          -0.035,
+          0.043
+        ],
+        "cycles": 94,
+        "block_weeks": 1
+      },
+      "1M": {
+        "diff": -0.004,
+        "ci90": [
+          -0.062,
+          0.051
+        ],
+        "cycles": 91,
+        "block_weeks": 4
+      },
+      "3M": {
+        "diff": 0.069,
+        "ci90": [
+          0.037,
+          0.118
+        ],
+        "cycles": 82,
+        "block_weeks": 13
+      }
+    },
+    "solo_volatilidad": {
+      "1W": {
+        "diff": 0.018,
+        "ci90": [
+          -0.025,
+          0.06
+        ],
+        "cycles": 94,
+        "block_weeks": 1
+      },
+      "1M": {
+        "diff": 0.026,
+        "ci90": [
+          -0.033,
+          0.088
+        ],
+        "cycles": 91,
+        "block_weeks": 4
+      },
+      "3M": {
+        "diff": -0.126,
+        "ci90": [
+          -0.224,
+          -0.028
+        ],
+        "cycles": 82,
+        "block_weeks": 13
+      }
+    },
+    "ret60_sobre_vol": {
+      "1W": {
+        "diff": -0.007,
+        "ci90": [
+          -0.053,
+          0.039
+        ],
+        "cycles": 94,
+        "block_weeks": 1
+      },
+      "1M": {
+        "diff": -0.007,
+        "ci90": [
+          -0.062,
+          0.04
+        ],
+        "cycles": 91,
+        "block_weeks": 4
+      },
+      "3M": {
+        "diff": 0.049,
+        "ci90": [
+          0.008,
+          0.098
+        ],
+        "cycles": 82,
+        "block_weeks": 13
+      }
+    }
+  },
+  "note": "el universo se eligió mirando este mismo periodo (sesgo de selección); las tasas absolutas\nestán infladas. La comparación entre reglas sobre los mismos datos sí es informativa."
+}
