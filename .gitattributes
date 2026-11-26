@@ -5,3 +5,6 @@ lake/clean/*.csv -text
 lake/curated/*.csv -text
 reports/*.json -text
 artifacts/*.json -text
+# Scripts de shell siempre con LF (bash falla con CRLF) y fixtures con bytes exactos.
+*.sh text eol=lf
+tests/fixtures/** -text
