@@ -7,7 +7,7 @@
       "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?interval=1d&period1=1730419200&period2=1795651200",
       "provider": "Yahoo Finance chart",
       "downloaded_at": "2026-11-26T16:22:37.663490+00:00",
-      "sha256": "7ad46b7d8cd74fb6f948ad0b65570793344fbc2fd1cb597a369ddc3b449aa993",
+      "sha256": "07325913dcab9c0b7566d46bb80e08c73bfe41eb0f24c5412a795ad5b0984d61",
       "requested_start": "2024-11-01",
       "requested_end": "2026-11-25"
     },
@@ -38,6 +38,16 @@
       "provider": "Yahoo Finance chart",
       "downloaded_at": "2026-11-26T16:22:40.547302+00:00",
       "sha256": "98484430b0e1f07cc00730ad548a58ecd99f7e45c89535c47d28f05eeb732b18",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-25"
+    },
+    {
+      "ticker": "HOOD",
+      "file": "HOOD.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/HOOD?interval=1d&period1=1730419200&period2=1795651200",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-26T16:22:40.077487+00:00",
+      "sha256": "8d85af0213cc0d81aa219717c602ed5a2c1d3803eb3304220825a41425ab807e",
       "requested_start": "2024-11-01",
       "requested_end": "2026-11-25"
     }

@@ -5,7 +5,8 @@
 Casos (cada uno en tests/fixtures/<caso>/<descarga>/ con su manifest.json):
   filas_invalidas      el ETL termina bien y RECHAZA filas: cierre nulo, precio negativo, volumen negativo,
                        duplicados, fin de semana, fecha futura, fuera de rango, sesión incompleta y
-                       símbolo distinto (COIN, fuera del universo configurado).
+                       símbolo distinto (COIN), valor no finito y metadatos incompletos (HOOD).
+                       COIN y HOOD no están en el universo configurado: el ETL termina bien.
   raw_alterado         un original cambia después de calcular su huella: el ETL se DETIENE.
   universo_incompleto  falta un ticker configurado: el ETL se DETIENE y no se actualiza la entrada del publicador.
   fichero_ausente      el manifiesto cita un original que no existe: el ETL se DETIENE.
@@ -89,6 +90,9 @@ def main():
     insert_bar(invalid["MU"], len(mu["timestamp"]), 1795700000, -1)    # sesion_incompleta (2026-11-26)
     insert_bar(invalid["MU"], 0, 1729000000, 0)                         # fuera_de_rango (2024-10-15)
     series(invalid["AMD"])[1]["volume"][50] = -5                        # volumen_negativo
+    set_close(invalid["MU"], 30, float("nan"))                          # valor_no_finito (NaN en el JSON)
+    invalid["HOOD"] = load("HOOD")
+    del series(invalid["HOOD"])[0]["meta"]["exchangeTimezoneName"]     # metadatos_incompletos (todas sus filas)
     set_close(invalid["MU"], 10, None)                       # cierre_nulo
     set_close(invalid["MU"], 20, -1.0)                       # precio_no_positivo
     amd, _, _ = series(invalid["AMD"])

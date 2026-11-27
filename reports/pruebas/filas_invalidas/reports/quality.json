@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-26T17:29:26.447855+00:00",
+  "generated_at": "2026-11-27T16:17:31.561709+00:00",
   "status": "ok",
   "raw_root": "/workspace/tests/fixtures/filas_invalidas",
   "lake_root": "/tmp/lake_filas_invalidas",
@@ -15,7 +15,7 @@
       "name": "integridad_raw",
       "action": "DETENER",
       "status": "ok",
-      "detail": "4 ficheros con huella SHA-256 verificada"
+      "detail": "5 ficheros con huella SHA-256 verificada"
     },
     {
       "name": "filas_rechazadas",
@@ -23,11 +23,13 @@
       "status": "ok",
       "detail": {
         "fin_de_semana": 1,
+        "metadatos_incompletos": 90,
         "sesion_incompleta": 1,
         "cierre_nulo": 1,
         "precio_no_positivo": 1,
         "volumen_negativo": 1,
         "fuera_de_rango": 1,
+        "valor_no_finito": 1,
         "fecha_futura": 1,
         "simbolo_distinto": 90,
         "duplicado_con_precios_distintos": 2,
@@ -62,7 +64,7 @@
       "name": "validacion_cruzada",
       "action": "IDENTIFICAR",
       "status": "ok",
-      "detail": "266 cierres comparados, 0 fuera de tolerancia; sin cobertura: ninguno"
+      "detail": "265 cierres comparados, 0 fuera de tolerancia; sin cobertura: ninguno"
     },
     {
       "name": "ultimo_cierre_confirmado",
@@ -74,7 +76,7 @@
       "name": "frescura_del_corte",
       "action": "IDENTIFICAR",
       "status": "ok",
-      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 1 días"
+      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 2 días"
     },
     {
       "name": "senales_completas",
@@ -88,15 +90,15 @@
       "status": "ok",
       "detail": {
         "escritas": {
-          "clean/prices": 266,
-          "quarantine/rejected": 100,
-          "curated/features_daily": 266,
+          "clean/prices": 265,
+          "quarantine/rejected": 191,
+          "curated/features_daily": 265,
           "curated/features": 3
         },
         "releidas": {
-          "clean/prices": 266,
-          "quarantine/rejected": 100,
-          "curated/features_daily": 266,
+          "clean/prices": 265,
+          "quarantine/rejected": 191,
+          "curated/features_daily": 265,
           "curated/features": 3
         }
       }
@@ -106,29 +108,31 @@
   "downloads": [
     {
       "download_id": "20261126T000000000000Z",
-      "files": 4,
+      "files": 5,
       "requested_start": "2024-11-01",
       "requested_end": "2026-11-25"
     }
   ],
   "counts": {
-    "read": 366,
-    "rejected": 100,
+    "read": 456,
+    "rejected": 191,
     "rejected_by_reason": {
       "fin_de_semana": 1,
+      "metadatos_incompletos": 90,
       "sesion_incompleta": 1,
       "cierre_nulo": 1,
       "precio_no_positivo": 1,
       "volumen_negativo": 1,
       "fuera_de_rango": 1,
+      "valor_no_finito": 1,
       "fecha_futura": 1,
       "simbolo_distinto": 90,
       "duplicado_con_precios_distintos": 2,
       "duplicado_identico": 1
     },
-    "valid": 266,
+    "valid": 265,
     "superseded_by_newer_download": 0,
-    "clean": 266
+    "clean": 265
   },
   "coverage": [
     {
@@ -149,7 +153,7 @@
     },
     {
       "ticker": "MU",
-      "sessions": 88,
+      "sessions": 87,
       "first": "2026-07-22",
       "last": "2026-11-25",
       "download_id": "20261126T000000000000Z",
@@ -162,10 +166,10 @@
     "by_ticker": [
       {
         "ticker": "MU",
-        "compared": 88,
+        "compared": 87,
         "different": 0,
         "only_primary": 0,
-        "only_second": 430,
+        "only_second": 431,
         "max_diff": 5e-06
       },
       {
@@ -186,14 +190,14 @@
       }
     ]
   },
-  "cut_age_days": 1,
+  "cut_age_days": 2,
   "parquet_reread": {
-    "clean/prices": 266,
-    "quarantine/rejected": 100,
-    "curated/features_daily": 266,
+    "clean/prices": 265,
+    "quarantine/rejected": 191,
+    "curated/features_daily": 265,
     "curated/features": 3
   },
   "snapshot_date": "2026-11-25",
   "companies": 3,
-  "features_sha256": "05d1731f00ea8281b5cf6251581b747809ec377e335f251cc8421ef4a2c9a9cd"
+  "features_sha256": "f6cf3598094c8c74e5dfcad9a2386080ff82659d847a2809b33972055cd44a15"
 }

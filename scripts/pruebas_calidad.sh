@@ -69,5 +69,12 @@ for table in clean/prices curated/features curated/features_daily quarantine/rej
   [ -d "lake/$table" ]; expect "$?" 0 "tabla Parquet lake/$table reconstruida"
 done
 
+{ echo "# Árbol real de las tablas Parquet del lake local ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+  find lake/clean lake/curated lake/quarantine -type d | sort
+  echo "# Ficheros Parquet por tabla"
+  for t in clean/prices curated/features curated/features_daily quarantine/rejected; do
+    echo "lake/$t: $(find lake/$t -name '*.parquet' | wc -l) ficheros"; done; } > reports/lake_arbol.txt
+say "-- Árbol del lake guardado en reports/lake_arbol.txt"
+
 say "== Resultado: $FAILURES fallos"
 [ "$FAILURES" -eq 0 ]

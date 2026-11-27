@@ -1,0 +1,45 @@
+# Árbol real de las tablas Parquet del lake local (2026-11-27T16:23:08Z)
+lake/clean
+lake/clean/prices
+lake/clean/prices/year=2024
+lake/clean/prices/year=2024/month=11
+lake/clean/prices/year=2024/month=12
+lake/clean/prices/year=2025
+lake/clean/prices/year=2025/month=1
+lake/clean/prices/year=2025/month=10
+lake/clean/prices/year=2025/month=11
+lake/clean/prices/year=2025/month=12
+lake/clean/prices/year=2025/month=2
+lake/clean/prices/year=2025/month=3
+lake/clean/prices/year=2025/month=4
+lake/clean/prices/year=2025/month=5
+lake/clean/prices/year=2025/month=6
+lake/clean/prices/year=2025/month=7
+lake/clean/prices/year=2025/month=8
+lake/clean/prices/year=2025/month=9
+lake/clean/prices/year=2026
+lake/clean/prices/year=2026/month=1
+lake/clean/prices/year=2026/month=10
+lake/clean/prices/year=2026/month=11
+lake/clean/prices/year=2026/month=2
+lake/clean/prices/year=2026/month=3
+lake/clean/prices/year=2026/month=4
+lake/clean/prices/year=2026/month=5
+lake/clean/prices/year=2026/month=6
+lake/clean/prices/year=2026/month=7
+lake/clean/prices/year=2026/month=8
+lake/clean/prices/year=2026/month=9
+lake/curated
+lake/curated/features
+lake/curated/features/snapshot_date=2026-11-25
+lake/curated/features_daily
+lake/curated/features_daily/year=2024
+lake/curated/features_daily/year=2025
+lake/curated/features_daily/year=2026
+lake/quarantine
+lake/quarantine/rejected
+# Ficheros Parquet por tabla
+lake/clean/prices: 100 ficheros
+lake/curated/features: 4 ficheros
+lake/curated/features_daily: 12 ficheros
+lake/quarantine/rejected: 0 ficheros

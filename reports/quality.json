@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-26T17:33:58.064497+00:00",
+  "generated_at": "2026-11-27T16:21:59.157619+00:00",
   "status": "ok",
   "raw_root": "/workspace/lake/raw/yahoo",
   "lake_root": "/workspace/lake",
@@ -75,7 +75,7 @@
       "name": "frescura_del_corte",
       "action": "IDENTIFICAR",
       "status": "ok",
-      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 1 días"
+      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 2 días"
     },
     {
       "name": "senales_completas",
@@ -483,7 +483,7 @@
       }
     ]
   },
-  "cut_age_days": 1,
+  "cut_age_days": 2,
   "parquet_reread": {
     "clean/prices": 9190,
     "quarantine/rejected": 0,

@@ -1,5 +1,5 @@
-== Pruebas de calidad 2026-11-26T17:29:22Z
--- filas_invalidas: {"status": "ok", "read": 366, "rejected": 100, "rejected_by_reason": {"fin_de_semana": 1, "sesion_incompleta": 1, "cierre_nulo": 1, "precio_no_positivo": 1, "volumen_negativo": 1, "fuera_de_rango": 1, "fecha_futura": 1, "simbolo_distinto": 90, "duplicado_con_precios_distintos": 2, "duplicado_identico": 1}, "valid": 266, "superseded_by_newer_download": 0, "clean": 266, "companies": 3, "snapshot_date": "2026-11-25"}
+== Pruebas de calidad 2026-11-27T16:17:26Z
+-- filas_invalidas: {"status": "ok", "read": 456, "rejected": 191, "rejected_by_reason": {"fin_de_semana": 1, "metadatos_incompletos": 90, "sesion_incompleta": 1, "cierre_nulo": 1, "precio_no_positivo": 1, "volumen_negativo": 1, "fuera_de_rango": 1, "valor_no_finito": 1, "fecha_futura": 1, "simbolo_distinto": 90, "duplicado_con_precios_distintos": 2, "duplicado_identico": 1}, "valid": 265, "superseded_by_newer_download": 0, "clean": 265, "companies": 3, "snapshot_date": "2026-11-25"}
    OK  código de salida del ETL
 -- raw_alterado: {"status": "failed", "error": "Originales raw ausentes, alterados o ilegibles."}
    OK  código de salida del ETL
@@ -31,4 +31,5 @@
    OK  tabla Parquet lake/curated/features reconstruida
    OK  tabla Parquet lake/curated/features_daily reconstruida
    OK  tabla Parquet lake/quarantine/rejected reconstruida
+-- Árbol del lake guardado en reports/lake_arbol.txt
 == Resultado: 0 fallos

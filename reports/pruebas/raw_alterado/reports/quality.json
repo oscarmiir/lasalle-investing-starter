@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-26T17:30:03.371083+00:00",
+  "generated_at": "2026-11-27T16:18:08.932334+00:00",
   "status": "failed",
   "raw_root": "/workspace/tests/fixtures/raw_alterado",
   "lake_root": "/tmp/lake_raw_alterado",
