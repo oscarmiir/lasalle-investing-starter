@@ -37,7 +37,7 @@ def build(student, tickers, rows, scorer=score):
     return payload, {"snapshot_date": next(iter(snapshots)), "universe": tickers, "candidates": candidates}
 
 
-def check_quality(quality, features, max_age_days=None):
+def check_quality(quality, features, max_age_days=None, tickers=None):
     """Puerta de publicación: solo se publica una entrada validada por el ETL y sin cambios posteriores."""
     try:
         report = json.loads(Path(quality).read_text(encoding="utf-8"))
@@ -47,6 +47,8 @@ def check_quality(quality, features, max_age_days=None):
         raise ValueError(f"El último ETL no superó los controles ({report.get('error', 'estado ' + str(report.get('status')))}). No se publica.")
     if report.get("features_sha256") != hashlib.sha256(Path(features).read_bytes()).hexdigest():
         raise ValueError("features.csv no coincide con el validado por el ETL. Vuelve a ejecutar el ETL.")
+    if tickers is not None and sorted(report.get("universe", [])) != sorted(tickers):
+        raise ValueError("El ETL validado corresponde a otro universo. Vuelve a ejecutar el ETL con config.toml actual.")
     if max_age_days is not None:
         age = (datetime.now(timezone.utc).date() - date.fromisoformat(report["snapshot_date"])).days
         if age > max_age_days:
@@ -58,7 +60,7 @@ def publish(config=ROOT / "config.toml", features=ROOT / "lake/curated/features.
             quality=ROOT / "reports/quality.json", max_age_days=None):
     student, tickers = settings(config)
     if quality is not None:
-        check_quality(quality, features, max_age_days)
+        check_quality(quality, features, max_age_days, tickers)
     with Path(features).open(encoding="utf-8", newline="") as stream:
         payload, report = build(student, tickers, list(csv.DictReader(stream)))
     # Validar todo antes de sustituir la última salida correcta.

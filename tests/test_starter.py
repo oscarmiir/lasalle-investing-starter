@@ -39,8 +39,13 @@ def test_invalid_inputs_keep_last_published_artifact(tmp_path):
     artifact.write_text('{"previous": true}')
     config = tmp_path / "config.toml"
     config.write_text('student = "Laura"\ntickers = ["ORCL", "KO", "ADBE"]\n')
-    with pytest.raises(ValueError, match="Faltan datos"):
+    # Con la puerta de calidad: el informe validado es de otro universo.
+    with pytest.raises(ValueError, match="otro universo"):
         publish(config, ROOT / "lake/curated/features.csv", tmp_path)
+    assert artifact.read_text() == '{"previous": true}'
+    # Sin la puerta: el publicador detecta igualmente que faltan datos.
+    with pytest.raises(ValueError, match="Faltan datos"):
+        publish(config, ROOT / "lake/curated/features.csv", tmp_path, quality=None)
     assert artifact.read_text() == '{"previous": true}'
 
 
@@ -108,8 +113,11 @@ def test_publication_gate_requires_a_passed_etl_and_the_same_features(tmp_path):
     quality.write_text(json.dumps({"status": "ok", "features_sha256": "otro"}))
     with pytest.raises(ValueError, match="no coincide"):
         check_quality(quality, features_file)
-    quality.write_text(json.dumps({"status": "ok", "features_sha256": digest}))
+    quality.write_text(json.dumps({"status": "ok", "features_sha256": digest, "universe": ["AAA", "BBB", "CCC"]}))
     assert check_quality(quality, features_file)["status"] == "ok"
+    assert check_quality(quality, features_file, tickers=["CCC", "AAA", "BBB"])["status"] == "ok"
+    with pytest.raises(ValueError, match="otro universo"):
+        check_quality(quality, features_file, tickers=["AAA", "BBB", "DDD"])
 
 
 def test_published_artifact_matches_validated_features():
