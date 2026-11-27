@@ -45,7 +45,9 @@ Señales en curated (sobre `adjclose`, por ticker en orden de fecha): `daily_ret
 `return_n` = adjclose / adjclose de hace *n* sesiones − 1 (n = 5, 20, 60); `volatility_20` = desviación típica
 poblacional de los últimos 20 `daily_return`; `observations` = sesiones acumuladas. `curated/features` toma la
 última sesión de cada ticker; `snapshot_date` es el corte común (la sesión más reciente del universo) y
-`last_session` la del ticker.
+`last_session` la del ticker. Las ventanas cuentan **sesiones**, no días naturales: un día sin cotización (festivo)
+no genera fila, así que `return_5` compara con el quinto cierre anterior que existe. Los huecos de más de 5 días
+se anotan como aviso.
 
 ## Particionado: comparación medida
 
@@ -69,7 +71,7 @@ Conclusiones:
   la lectura. Las diferencias no justifican una decisión por sí solas.
 - Al crecer el número de tickers, **particionar por ticker genera miles de ficheros pequeños** (7.600 con
   3.000 tickers) y todo se vuelve unas 100 veces más lento, también la escritura.
-- `year/month` mantiene un número de ficheros acotado (uno por mes) y un rendimiento cercano al de no
+- `year/month` mantiene un número de ficheros acotado (un directorio por mes) y un rendimiento cercano al de no
   particionar. Además permite reprocesar o retener periodos completos.
 
 Decisión: `clean/prices` por `year/month`, con las filas ordenadas por `ticker` y `date` dentro de cada

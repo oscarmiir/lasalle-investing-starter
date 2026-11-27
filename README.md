@@ -1,161 +1,207 @@
-# LaSalle Investing · repositorio de partida
+# LaSalle Investing · RA1 Market Data Lake — Òscar Mir Sala
 
-Base común de los proyectos del curso: **datos ya descargados, ETL de referencia, selección Top 3 y API funcional**. Se mantiene el mismo código de selección inicial para todos. Cambiar la estrategia es opcional.
+Proyecto de RA1 (Sistemas Big Data) construido sobre la base del profesor
+[ericbellet/lasalle-investing-starter](https://github.com/ericbellet/lasalle-investing-starter). Se descargan
+precios reales, se guardan sin modificar en un Data Lake (local y en Cloudflare R2), se procesan con PySpark con
+controles de calidad que pueden detener la publicación, y se publica un Top 3 por horizonte en una API pública.
 
-La plataforma del campeonato la mantiene el profesor. Quien quiera colaborar puede proponer mejoras mediante issues y pull requests en [el repositorio de la plataforma](https://github.com/ericbellet/proyecto_lasalle_2026_2027). Esa colaboración es voluntaria.
-
-## 1. Crea tu repositorio en GitHub
-
-Un **fork** es tu copia del proyecto del profesor dentro de GitHub. Primero creas esa copia en tu cuenta y después la descargas al ordenador con `git clone`.
-
-### A. Hacer el fork en tu cuenta
-
-1. Abre [GitHub](https://github.com) e inicia sesión con **Sign in**. Si todavía no tienes una cuenta personal, créala antes de continuar.
-2. Abre [ericbellet/lasalle-investing-starter](https://github.com/ericbellet/lasalle-investing-starter). Comprueba el propietario y el nombre para asegurarte de que estás en la base del alumnado.
-3. Busca **Fork** arriba a la derecha, junto a las notificaciones y las estrellas. Pulsa el botón. Si aparece un menú, elige **Create a new fork**.
-
-![Botón Fork señalado en el repositorio real de partida](docs/github-fork.png)
-
-4. En el formulario, elige estos valores:
-
-| Campo | Qué debes poner |
+| | |
 |---|---|
-| **Owner** | Tu usuario personal de GitHub |
-| **Repository name** | `lasalle-investing-starter`; conserva el nombre para seguir los comandos del curso |
-| **Description** | Opcional; puedes mantener la que aparece |
-| **Copy the main branch only** | Mantén la casilla marcada para copiar la rama de trabajo inicial |
+| **API pública** | <https://lasalle-ra1-api-578339148607.europe-west1.run.app/api/predictions> |
+| **Alumno** (`student`) | Òscar Mir Sala |
+| **Universo** | 15 acciones y ETF de EE. UU. ([justificación](docs/universo.md)) |
+| **Versión entregada** | etiqueta Git `v1` |
+| **Selección** | regla común de la base, sin cambios ([backtest y decisión](docs/estrategia.md)) |
 
-5. Pulsa el botón verde **Create fork**, al final del formulario. Espera a que GitHub abra tu nuevo repositorio.
-6. Comprueba que el propietario que aparece arriba es **tu usuario**. Debajo del nombre verás **forked from ericbellet/lasalle-investing-starter**: esa referencia confirma el origen de la copia.
-
-**Resultado:** ya tienes tu repositorio en GitHub. Todavía no has descargado sus archivos al ordenador. Si GitHub indica que ya tienes un fork, abre esa copia desde tu cuenta y continúa con el apartado B.
-
-### B. Descargar tu fork al ordenador
-
-1. Entra en tu fork y pulsa **Code → Local → HTTPS**.
-2. Copia la URL completa con el botón de copiar. Comprueba que el propietario de la URL es tu usuario.
-3. Abre una terminal en la carpeta donde quieras guardar el trabajo. Escribe `git clone`, deja un espacio, pega la URL copiada y pulsa Intro. No escribas literalmente `TU_USUARIO`.
-4. Espera a que termine la descarga. Aparecerá la carpeta `lasalle-investing-starter`.
-5. Entra en ella y comprueba la conexión con GitHub:
-
-```bash
-cd lasalle-investing-starter
-git remote -v
-```
-
-Las líneas de `origin` deben apuntar a tu fork, con tu usuario como propietario. Al terminar debes tener **el fork en GitHub y la carpeta del proyecto en tu ordenador**.
-
-### C. Instalar las dependencias
-
-Desde esa misma carpeta, ejecuta:
-
-```bash
-uv sync --locked --python 3.11
-```
-
-Referencia: [documentación oficial de GitHub sobre forks](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
-
-## 2. Arranca la API con los datos incluidos
-
-```bash
-uv run uvicorn app:app --reload
-```
-
-Abre [las selecciones](http://127.0.0.1:8000/api/predictions), [el estado](http://127.0.0.1:8000/api/health) o [Swagger](http://127.0.0.1:8000/docs). La respuesta inicial ya contiene nueve selecciones: tres de `1W`, tres de `1M` y tres de `3M`. El nombre inicial es un ejemplo.
-
-## 3. Configura tu nombre, acciones y fondos
-
-Edita `config.toml`: escribe el nombre con el que te ha registrado el profesor y tu lista de tickers. **Puedes elegir acciones de cualquier país, fondos de inversión y ETF.** El snapshot inicial no limita tu universo. Comprueba el identificador, moneda e histórico de cada instrumento y que la plataforma pueda recuperar su cotización o valor liquidativo al resolver las selecciones. Necesitas al menos tres instrumentos distintos con datos suficientes.
-
-Con el universo inicial puedes publicar de inmediato:
-
-```bash
-uv run python publish.py
-```
-
-Recarga `/api/predictions`: debe aparecer tu nombre. Dos consultas conservan la misma fecha y resultado. Para detener el servidor utiliza `Ctrl+C`.
-
-Si añades una acción sin datos, el publicador lo indica y conserva la última salida correcta. Descargar nuevas acciones requiere actualizar la entrada como explica el apartado 7.
-
-## 4. Localiza los datos raw y el Data Lake
-
-**Raw es la respuesta original del proveedor, guardada antes de limpiar o transformar.** En esta base está en `lake/raw/yahoo/<descarga>/`. Cada JSON contiene la respuesta literal de una empresa; `manifest.json` guarda URL, fecha de descarga y huella SHA-256.
+## Recorrido de los datos
 
 ```text
-lake/
-  raw/yahoo/<descarga>/<TICKER>.json
-  raw/yahoo/<descarga>/manifest.json
-  clean/prices.csv
-  curated/features.csv
-artifacts/predictions.json
-reports/quality.json
-reports/selection.json
+Yahoo Finance ─┐                       ┌─ lake/clean/prices (Parquet, year/month)
+               ├─> lake/raw/<fuente>/ ─┤  lake/quarantine/rejected (filas rechazadas y motivo)
+Nasdaq.com ────┘   + manifest.json     └─ lake/curated/features_daily + features (Parquet)
+                   (SHA-256)                       │
+                        ETL PySpark (Docker) ──────┘ reports/quality.json (controles y puerta)
+                                                   │
+          publish.py (solo si el ETL está en ok) ──> artifacts/predictions.json ──> API FastAPI (Cloud Run)
 ```
 
-El snapshot incluido contiene **1.420 cierres diarios reales de diez empresas, del 1 de abril al 22 de octubre de 2026**. Su procedencia está en [DATOS.md](DATOS.md). Es una copia fija: no se actualiza por consultar la API. Comprueba su fecha antes de utilizarla en un ciclo nuevo.
+1. **Descarga** (`download.py`, `download_nasdaq.py`): cada ejecución crea una carpeta raw nueva con la
+   respuesta literal del proveedor y un manifiesto (URL, hora, rango pedido, SHA-256).
+2. **ETL** (`etl_spark.py`, PySpark 3.5 en Docker): verifica las huellas, transforma y escribe Parquet
+   particionado, relee lo escrito y genera `reports/quality.json`.
+3. **Publicación** (`publish.py`): aplica `strategy.py` al corte validado y guarda el Top 3 por horizonte. Se
+   niega a publicar si el último ETL falló o si `features.csv` ha cambiado después de validarse.
+4. **API** (`app.py`): sirve el artefacto ya cerrado; no descarga ni recalcula al recibir una consulta.
 
-No cambies los originales para arreglar datos. Corrige la transformación y escribe en clean o curated. Una nueva descarga crea otra carpeta raw. El cargador comprueba las huellas para detectar cambios accidentales.
+## Puesta en marcha
 
-## 5. Ejecuta el ETL con PySpark
-
-Necesitas Docker en funcionamiento. Desde la raíz de tu copia:
+Requisitos: Git, [uv](https://docs.astral.sh/uv/) y Docker Desktop en marcha.
 
 ```bash
+git clone https://github.com/oscarmiir/lasalle-investing-starter.git
+cd lasalle-investing-starter
+uv sync --locked --python 3.11
+uv run pytest -q                                  # 9 pruebas
+uv run uvicorn app:app --reload                   # http://127.0.0.1:8000/api/predictions y /docs
+```
+
+En Windows, si una política del sistema bloquea `uvicorn.exe`: `uv run python -m uvicorn app:app --reload`.
+
+### Repetir todo el proceso con los datos incluidos
+
+```bash
+docker compose run --rm etl        # raw -> clean/curated/quarantine + reports/quality.json
+uv run python publish.py           # artifacts/predictions.json + reports/selection.json
+bash scripts/pruebas_calidad.sh    # fallos controlados, reproceso y recuperación (reports/pruebas/)
+```
+
+Los Parquet no se versionan: se reconstruyen desde raw con el primer comando. Con el raw incluido el ETL produce
+9.190 precios limpios de 25 empresas (las 15 del universo y las 10 del snapshot inicial, que se conserva), 0
+rechazos y un corte de 15 empresas a 2026-11-25. Repetirlo da los mismos `prices.csv` y `features.csv` byte a
+byte (el informe cambia solo en su fecha de generación).
+
+Las pruebas de PySpark se ejecutan en Docker con `scripts/pruebas_calidad.sh`; `pytest` cubre la parte Python
+(publicador, puerta de calidad, contrato, API y lectura de la configuración).
+
+### Actualizar los datos para un ciclo nuevo
+
+```bash
+uv run python download.py --start 2024-11-01 --end <último día hábil>
+uv run python download_nasdaq.py --start 2024-11-01 --end <último día hábil>
 docker compose run --rm etl
-uv run python publish.py
+uv run python publish.py --max-age-days 4      # rechaza publicar con un corte antiguo
+bash scripts/desplegar.sh                      # nueva imagen en Cloud Run y comprobación del endpoint
 ```
 
-La primera ejecución descarga la imagen de Spark. El contenedor procesa los originales incluidos, guarda Parquet en `lake/clean/prices/` y `lake/curated/features/`, relee los precios y actualiza el informe de calidad. También exporta `lake/curated/features.csv`, que utiliza el publicador.
+Las descargas anteriores se conservan; el ETL usa, para cada ticker, la serie completa de su descarga más
+reciente. En Git Bash (Windows) conviene `export MSYS_NO_PATHCONV=1` antes de pasar rutas `/workspace` a Docker.
 
-Inspecciona `reports/quality.json`: el snapshot inicial debe producir 1.420 precios, diez empresas y la misma cantidad al releer Parquet. Los ficheros Parquet generados están excluidos de Git; conserva evidencias y las instrucciones para reproducirlos.
+## Configuración
 
-El fichero `prepare.py` es el preparador Python del snapshot de referencia. RA1 trabaja con `etl_spark.py`; no basta con ejecutar únicamente el preparador.
+`config.toml` contiene el nombre registrado y el universo. Un ticker sin datos detiene el ETL y el publicador
+conserva la última salida correcta: añadir un símbolo exige descargar antes sus precios.
 
-## 6. Mantén la selección común o cámbiala
+## Data Lake
 
-`strategy.py` contiene la función común `score(row, horizon)`. Puedes dejarla como viene. El resto del trabajo se centra en datos, calidad, organización y reproducción.
+Detalle de zonas, tablas, diccionario de campos, particionado y recuperación en [docs/lake.md](docs/lake.md).
 
-Si quieres otro criterio para el Top 3, modifica esa función, documenta el cambio y ejecuta `uv run python publish.py`. El publicador aplica la regla al universo configurado y toma las tres primeras acciones de cada horizonte. No cambies el contrato HTTP.
+- **raw** (versionado en Git): `lake/raw/yahoo/<descarga>/<TICKER>.json` y `lake/raw/nasdaq/<descarga>/…`,
+  cada carpeta con su `manifest.json`. Nunca se edita: se corrige la transformación. `.gitattributes` impide
+  que Git altere sus bytes.
+- **clean**: `lake/clean/prices/` (Parquet por `year/month`, ordenado por ticker y fecha) y `prices.csv`.
+- **quarantine**: `lake/quarantine/rejected/` (Parquet por `reason`).
+- **curated**: `lake/curated/features_daily/` (por `year`), `lake/curated/features/` (por `snapshot_date`) y
+  `features.csv`, la entrada del publicador.
+- **Particionado medido**: particionar por ticker generó 7.600 ficheros pequeños y fue unas 100 veces más
+  lento con una réplica ×200; se eligió `year/month`. Para repetirlo:
+  `docker compose run --rm --entrypoint /opt/spark/bin/spark-submit etl --master local[2] /workspace/scripts/benchmark_particiones.py`
+- **Árbol real** de las tablas generadas: `reports/lake_arbol.txt` (lo regenera `scripts/pruebas_calidad.sh`).
 
-Los candidatos completos se guardan en `reports/selection.json`. Un score ordena empresas y no debe presentarse como una probabilidad.
+### Almacenamiento en la nube (ampliación): Cloudflare R2
 
-## 7. Actualizar o ampliar datos
-
-El arranque no necesita ninguna descarga. Para actualizar la muestra con el adaptador incluido, configura primero los tickers y elige un rango con al menos 61 sesiones válidas por empresa:
+- Bucket **`lasalle-ra1-lake`**, prefijos **`raw/<fuente>/<descarga>/`** y **`lake/{clean,curated,quarantine}/`**.
+- Credenciales en `.env` (ignorado por Git). Variables en [.env.example](.env.example): `R2_ENDPOINT`,
+  `R2_BUCKET`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`.
 
 ```bash
-uv run python download.py --start 2026-04-01 --end 2026-10-22
-docker compose run --rm etl
-uv run python publish.py
+uv run --group cloud --env-file .env python lake_cloud.py subir                  # raw -> R2 (no sobrescribe)
+docker compose run --rm etl-cloud --raw-root s3a://lasalle-ra1-lake/raw/yahoo \
+  --check-root s3a://lasalle-ra1-lake/raw/nasdaq --lake-root s3a://lasalle-ra1-lake/lake --out-root /workspace/reports/cloud
+uv run --group cloud --env-file .env python lake_cloud.py recuperar --destino <carpeta>   # con verificación SHA-256
+bash scripts/prueba_r2.sh                                                        # las tres pruebas, con evidencias
 ```
 
-Adapta las fechas al periodo que necesites. Este adaptador utiliza un acceso web de Yahoo Finance que puede cambiar; no es una API oficial garantizada. Investiga otras fuentes y sustituye el adaptador si ofrecen mejor cobertura, histórico, documentación o condiciones para tu caso. Conserva siempre las respuestas raw y su procedencia.
+Evidencia en `reports/cloud/resumen.txt`: el ETL lee raw desde R2, escribe y relee allí sus tablas, obtiene el
+mismo `features.csv` que en local y, tras recuperar raw desde R2, reconstruye las mismas salidas.
 
-## 8. Opciones de almacenamiento
+## Calidad de datos
 
-**Puedes completar todos los requisitos obligatorios de RA1 con los ficheros en local. Se concederán puntos extra si guardas los datos en AWS S3, Azure Data Lake o un servicio similar** y demuestras escritura, lectura desde el ETL y recuperación. También puedes investigar Cloudflare R2 y Supabase Storage. Distingue cuota gratuita mensual de créditos temporales o de estudiante y revisa las condiciones de tu cuenta.
+Cada control tiene una acción. Resultado de la última ejecución en `reports/quality.json`.
 
-Un bucket es un contenedor de ficheros. Puedes conservar prefijos `raw/`, `clean/` y `curated/`. Supabase Storage guarda ficheros; las tablas PostgreSQL corresponden al warehouse de RA2. No subas credenciales a GitHub.
+| Acción | Controles |
+|---|---|
+| **Rechazar la fila** (a `quarantine` con su motivo) | cierre nulo, valor no finito, precio ≤ 0, volumen negativo, símbolo distinto del pedido, fecha inválida, fecha futura, sesión no terminada en la hora de descarga, fuera del rango pedido, fin de semana, metadatos incompletos, duplicado idéntico (se conserva uno) y duplicado con precios distintos (se rechazan todos) |
+| **Identificar** (aviso en el informe) | salto diario de más del 50 %, hueco de más de 5 días, diferencias de más del 1 % con la segunda fuente, antigüedad del corte |
+| **Detener** (el ETL falla y no se publica) | original ausente, alterado o ilegible; ticker configurado sin datos, con menos de 61 sesiones o desfasado más de 5 días del corte; último cierre distinto entre fuentes; señales nulas; relectura de Parquet distinta de lo escrito |
 
-## 9. Comprueba y publica
+- **Fechas y sesiones:** la fecha de cada barra se calcula en la zona horaria de su bolsa, no en UTC.
+- **Precio:** las señales usan `adjclose`, el mismo precio con el que se resuelve el campeonato. Se conservan la
+  moneda y la unidad del proveedor.
+- **Fallos controlados** (`scripts/pruebas_calidad.sh`, copias en `tests/fixtures/`, el raw real no se toca):
+  filas inválidas (todos los motivos salvo `fecha_invalida`, que es defensivo), original alterado, ticker ausente, fichero ausente y segunda fuente
+  discrepante. El publicador se niega a publicar con un informe fallido y el artefacto no cambia. Dos ETL
+  seguidos dan salidas idénticas; si se borran todas las tablas Parquet, se reconstruyen idénticas desde raw.
 
-```bash
-uv run pytest -q
+## Fuentes de datos
+
+Comparación de nueve fuentes con pruebas reales en [docs/fuentes.md](docs/fuentes.md). Resumen:
+
+- **Yahoo Finance** (principal): es el precio con el que la plataforma resuelve. Acceso no oficial y sin garantías.
+- **Nasdaq.com** (validación cruzada, integrada): sin clave, cubre todo el universo. 7.770 cierres comparados,
+  2 fuera de tolerancia y el último cierre confirmado en los 15 tickers.
+- **Tiingo**: alternativa oficial si Yahoo deja de funcionar. **SEC EDGAR**: fundamentales oficiales para RA2.
+  Stooq ya bloquea las descargas automáticas y Alpha Vantage limita a 25 peticiones al día.
+
+## Selección
+
+Se mantiene la regla común (`strategy.py`). `scripts/backtest_estrategia.py` simula 95 ciclos con el criterio
+del campeonato y compara cinco reglas con intervalos por *bootstrap* de bloques: ninguna mejora en 1W ni en 1M, y
+la mejora en 3M no es concluyente por el sesgo de selección del universo ([docs/estrategia.md](docs/estrategia.md)).
+Los candidatos completos de cada publicación están en `reports/selection.json`, con las huellas de
+`strategy.py` y de `features.csv`.
+
+## API
+
+- `GET /api/predictions`: contrato de la plataforma (`student`, `generated_at` con zona horaria y 9 selecciones,
+  3 por horizonte, con puesto y ticker únicos). No incluye `model_name`, `model_version`, `probability` ni
+  `expected_return`.
+- `GET /api/health`: estado, alumno y fecha del artefacto.
+- **Publicación:** Google Cloud Run con el `Dockerfile` de la base ([docs/despliegue.md](docs/despliegue.md)).
+  El artefacto va dentro de la imagen y se mantiene tras reiniciar (comprobado forzando una revisión nueva). Dos
+  consultas seguidas devuelven lo mismo.
+
+## Versión v1 y evidencias para RA2
+
+La etiqueta `v1` fija el código, la configuración, el raw, el corte (2026-11-25), los candidatos
+(`reports/selection.json`) y el artefacto publicado. Evidencias:
+
+| Evidencia | Ubicación |
+|---|---|
+| API base y API con la configuración propia | `docs/evidencias/01_api_base.json`, `02_api_fase1.json` |
+| Ejecución de PySpark, controles y relectura de Parquet | `reports/quality.json` |
+| Fallos controlados, reproceso y recuperación | `reports/pruebas/resumen.txt` y `reports/pruebas/*/` |
+| Lake en R2 | `reports/cloud/resumen.txt` |
+| Particionado medido | `reports/benchmark_particiones.json` |
+| Fuentes (muestras reales) | `docs/evidencias/fuentes/` |
+| Universo y backtest | `reports/universo_exploracion.json`, `reports/backtest_estrategia.json` |
+| API pública | `docs/evidencias/despliegue/` |
+
+## Límites conocidos
+
+- Yahoo y Nasdaq.com son accesos no oficiales: pueden cambiar o bloquearse. El raw versionado permite repetir
+  el proceso sin ellos.
+- El universo solo incluye EE. UU.: la validación cruzada no cubriría bolsas de otros países (quedarían anotadas
+  como «sin cobertura»).
+- Las frecuencias históricas de subidas del +10 % están infladas por el sesgo de selección del universo.
+- La actualización de cada ciclo es manual (cinco comandos); no hay una tarea programada.
+- La imagen de Spark usa Python 3.8: `config.toml` se lee sin `tomllib` (solo cadenas y listas).
+
+## Estructura
+
+```text
+app.py · common.py · publish.py · strategy.py          API, utilidades, publicador y regla de selección
+download.py · download_nasdaq.py · lake_cloud.py       descargas raw y lake en R2
+etl_spark.py · prepare.py                              ETL PySpark (prepare.py: referencia Python de la base)
+compose.yaml · Dockerfile · .gcloudignore              Spark (etl, etl-cloud), imagen de la API y despliegue
+scripts/                                               pruebas, benchmark, backtest, exploración y despliegue
+tests/                                                 pytest y fixtures con errores inducidos
+docs/                                                  fuentes, lake, universo, estrategia y despliegue
 ```
 
-El repositorio incluye comprobaciones de universo configurable, fallos que conservan el artefacto, integridad raw y estabilidad de la API. GitHub Actions ejecuta las pruebas al subir cambios.
+## Continuidad
 
-Para construir una imagen de la API, después de publicar tu nombre y resultado:
+- **RA2:** cargar el warehouse y entrenar modelos frente a `v1` (`curated/features_daily` y SEC EDGAR).
+- **RA3:** agentes, conservando el contrato de la API.
 
-```bash
-docker build -t mi-api-inversion .
-docker run --rm -p 8000:8000 mi-api-inversion
-```
-
-Elige un alojamiento que sirva esa API por HTTPS y conserva el artefacto después de reiniciar. No se incluye un despliegue automático ni se contrata un servicio. La URL pública debe devolver directamente el JSON, sin login ni una página HTML. Entrega al profesor tu nombre y la URL completa de `/api/predictions`.
-
-## Continuidad de los RA
-
-- **RA1:** inspeccionar y adaptar el ETL, justificar el lake, aplicar calidad e investigar fuentes. La selección común ya está resuelta; cambiarla es opcional.
-- **RA2:** cargar el warehouse, entrenar y evaluar ML frente a la versión `v1` que hayas conservado.
-- **RA3:** añadir herramientas y agentes, evaluar frente a `v2` y conservar el contrato de la API.
+La colaboración con la plataforma del profesor es voluntaria y se coordina en su
+[repositorio](https://github.com/ericbellet/proyecto_lasalle_2026_2027).

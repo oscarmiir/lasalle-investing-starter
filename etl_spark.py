@@ -2,7 +2,7 @@
 
 Se ejecuta dentro del servicio etl de Docker:  docker compose run --rm etl
 Prueba sobre otra copia sin tocar el lake real:
-    docker compose run --rm etl --raw-root tests/fixtures/raw_corrupto --lake-root /tmp/lake --out-root /tmp/out
+    docker compose run --rm etl --raw-root tests/fixtures/raw_alterado --lake-root /tmp/lake --out-root /tmp/out
 
 Cada control tiene una acción:
   RECHAZAR    la fila va a lake/quarantine/rejected con su motivo y no llega a clean.
