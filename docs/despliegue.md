@@ -29,7 +29,8 @@ Evidencias en [`docs/evidencias/despliegue/`](evidencias/despliegue/resumen.txt)
 - La respuesta cumple el contrato (`validate_payload`) y coincide con `artifacts/predictions.json`.
 - Dos consultas consecutivas devuelven lo mismo, incluido `generated_at`.
 - Después de forzar un reinicio (revisión nueva) la respuesta es idéntica y llega en 0,65 s con arranque en frío.
-- Desde otro dispositivo: pendiente de captura desde un móvil con otra red.
+- Desde otro dispositivo: móvil con datos 5G (otra red), 2026-11-27 17:42; mismo alumno, misma fecha de
+  generación y las 9 predicciones ([captura](evidencias/despliegue/movil_5g.png)).
 
 ## Repetir el despliegue
 
