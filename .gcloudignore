@@ -1,0 +1,11 @@
+# Despliegue en Cloud Run (gcloud run deploy --source .): solo se sube lo que usa el Dockerfile.
+# Todo lo demás (credenciales .env, lake, informes, pruebas) queda fuera.
+*
+!Dockerfile
+!.dockerignore
+!pyproject.toml
+!uv.lock
+!app.py
+!common.py
+!artifacts/
+!artifacts/predictions.json

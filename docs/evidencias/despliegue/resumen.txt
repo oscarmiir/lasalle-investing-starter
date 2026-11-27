@@ -1,0 +1,12 @@
+Verificación del despliegue en Google Cloud Run (2026-11-27)
+URL base: https://lasalle-ra1-api-578339148607.europe-west1.run.app
+Endpoint: https://lasalle-ra1-api-578339148607.europe-west1.run.app/api/predictions
+
+- HTTPS: HTTP 200, application/json, 0,66 s. http:// redirige (302) a https://.
+- Contrato: validate_payload OK; student "Òscar Mir Sala"; 9 selecciones; generated_at con zona horaria.
+- Dos consultas consecutivas: respuesta idéntica (mismo generated_at).
+- Igual que artifacts/predictions.json del repositorio (el artefacto va dentro de la imagen).
+- /api/health: {"status":"ok","student":"Òscar Mir Sala",...}
+- Reinicio: nueva revisión lasalle-ra1-api-00002-lvw (variable REINICIO) -> HTTP 200 en 0,65 s
+  con arranque en frío y respuesta idéntica: el artefacto persiste tras reiniciar.
+- Respuesta guardada: respuesta_api_publica.json
