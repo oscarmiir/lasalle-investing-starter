@@ -5,7 +5,7 @@ set -u -o pipefail
 export MSYS_NO_PATHCONV=1 PYTHONUTF8=1 PYTHONIOENCODING=utf-8
 cd "$(dirname "$0")/.."
 [ -f .env ] || { echo "Falta .env (ver .env.example)"; exit 1; }
-BUCKET=$(grep -E '^R2_BUCKET=' .env | cut -d= -f2)
+BUCKET=$(grep -E '^R2_BUCKET=' .env | cut -d= -f2 | tr -d '\r ')
 OUT=reports/cloud
 mkdir -p "$OUT"
 LOG="$OUT/resumen.txt"
@@ -17,7 +17,7 @@ sha() { sha256sum "$1" | cut -d' ' -f1; }
 cloud() { uv run --group cloud --env-file .env python lake_cloud.py "$@"; }
 
 say "== Lake en R2 (bucket $BUCKET) $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-say "-- 1. Escritura de raw (no sobrescribe; compara huellas)"
+say "-- 1. Escritura de raw (no sobrescribe; si ya estaba subido, compara huellas y no sube nada)"
 cloud subir | tee -a "$LOG"; expect "$?" 0 "subida de raw"
 
 say "-- 2. ETL leyendo raw desde R2 y escribiendo clean/curated/quarantine en R2"
@@ -26,8 +26,10 @@ docker compose run --rm etl-cloud --raw-root "s3a://$BUCKET/raw/yahoo" --check-r
 expect "$?" 0 "ETL contra R2"
 say "   $(grep -E '^\{"status"' "$OUT/etl_cloud.log" | tail -n 1)"
 expect "$(sha $OUT/lake/curated/features.csv)" "$(sha lake/curated/features.csv)" "features.csv desde R2 idéntico al local"
-python -c "import json;d=json.load(open('$OUT/reports/quality.json',encoding='utf-8'));print('   relectura Parquet en R2:',d['parquet_reread'])" | tee -a "$LOG"
-cloud listar --prefijo lake/ | tail -n 1 | sed 's/^/   /' | tee -a "$LOG"
+uv run python -c "import json;d=json.load(open('$OUT/reports/quality.json',encoding='utf-8'));print('   relectura Parquet en R2:',d['parquet_reread'])" | tee -a "$LOG"
+cloud listar --prefijo lake/ > "$OUT/listado_lake_r2.txt"; cloud listar --prefijo raw/ > "$OUT/listado_raw_r2.txt"
+say "   $(tail -n 1 "$OUT/listado_lake_r2.txt")  (listado completo: $OUT/listado_lake_r2.txt)"
+say "   $(tail -n 1 "$OUT/listado_raw_r2.txt")  (listado completo: $OUT/listado_raw_r2.txt)"
 
 say "-- 3. Recuperación: descarga de raw desde R2, verificación de huellas y ETL local con lo recuperado"
 rm -rf "$OUT/recuperado"
