@@ -4,9 +4,15 @@ import os
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from common import ROOT, validate_payload
 
-app = FastAPI(title="LaSalle Investing · API del alumno")
+class UTF8JSONResponse(JSONResponse):
+    """Declara charset=utf-8 para que cualquier navegador muestre bien los acentos."""
+    media_type = "application/json; charset=utf-8"
+
+
+app = FastAPI(title="LaSalle Investing · API del alumno", default_response_class=UTF8JSONResponse)
 PREDICTIONS_FILE = Path(os.environ.get("PREDICTIONS_FILE", ROOT / "artifacts/predictions.json"))
 
 

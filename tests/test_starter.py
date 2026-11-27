@@ -55,7 +55,9 @@ def test_api_reads_the_same_saved_result_and_reports_missing_artifact(tmp_path, 
     artifact.write_text(json.dumps(payload))
     monkeypatch.setattr(app, "PREDICTIONS_FILE", artifact)
     with TestClient(app.app) as client:
-        assert client.get("/api/predictions").json() == payload
+        response = client.get("/api/predictions")
+        assert response.json() == payload
+        assert response.headers["content-type"] == "application/json; charset=utf-8"
         assert client.get("/api/predictions").json()["generated_at"] == payload["generated_at"]
         artifact.unlink()
         assert client.get("/api/predictions").status_code == 503
