@@ -70,8 +70,8 @@ En Windows, los scripts `.sh` se ejecutan desde Git Bash (no desde PowerShell). 
 tarda unos 15 minutos.
 
 Las tablas Parquet no se suben a Git: se regeneran desde raw con el primer comando. Con los datos incluidos, el
-ETL obtiene 9.190 precios limpios de 25 empresas (las 15 elegidas y las 10 del ejemplo inicial de la base, que se
-conserva), ningún rechazo y datos hasta el 2026-11-25. Si se repite, `prices.csv` y `features.csv` salen
+ETL obtiene 9.205 precios limpios de 25 empresas (las 15 elegidas y las 10 del ejemplo inicial de la base, que se
+conserva), ningún rechazo y datos hasta el 2026-11-27. Si se repite, `prices.csv` y `features.csv` salen
 idénticos; en el informe solo cambia la fecha de generación.
 
 Las pruebas de PySpark se ejecutan en Docker con `scripts/pruebas_calidad.sh`; `pytest` cubre la parte Python
@@ -198,7 +198,7 @@ en 3M no es concluyente por el sesgo de selección del universo ([docs/estrategi
 
 ## Versión v1 y evidencias para RA2
 
-La etiqueta `v1` marca la versión entregada: código, configuración, datos raw, fecha de corte (2026-11-25),
+La etiqueta `v1` marca la versión entregada: código, configuración, datos raw, fecha de corte (2026-11-27),
 candidatos (`reports/selection.json`) y resultado publicado. Evidencias:
 
 | Evidencia | Ubicación |

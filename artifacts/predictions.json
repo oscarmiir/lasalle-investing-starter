@@ -1,6 +1,6 @@
 {
   "student": "Òscar Mir Sala",
-  "generated_at": "2026-11-26T17:35:39.965707+00:00",
+  "generated_at": "2026-11-28T16:51:40.954723+00:00",
   "predictions": [
     {
       "ticker": "MRNA",
@@ -13,7 +13,7 @@
       "rank": 2
     },
     {
-      "ticker": "AFRM",
+      "ticker": "GDX",
       "horizon": "1W",
       "rank": 3
     },

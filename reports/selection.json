@@ -1,5 +1,5 @@
 {
-  "snapshot_date": "2026-11-25",
+  "snapshot_date": "2026-11-27",
   "universe": [
     "MU",
     "AMD",
@@ -21,230 +21,230 @@
     {
       "ticker": "MRNA",
       "horizon": "1W",
-      "score": 0.10845820579397653
+      "score": 0.13332741366529882
     },
     {
       "ticker": "PLTR",
       "horizon": "1W",
-      "score": 0.03314946011104044
-    },
-    {
-      "ticker": "AFRM",
-      "horizon": "1W",
-      "score": 0.01817260094757545
-    },
-    {
-      "ticker": "ASTS",
-      "horizon": "1W",
-      "score": 0.00013269918011191498
-    },
-    {
-      "ticker": "IONQ",
-      "horizon": "1W",
-      "score": -0.01819116044715887
+      "score": 0.10881027738484116
     },
     {
       "ticker": "GDX",
       "horizon": "1W",
-      "score": -0.022742645241795558
+      "score": 0.08871209923745664
+    },
+    {
+      "ticker": "IONQ",
+      "horizon": "1W",
+      "score": 0.07839884389015109
+    },
+    {
+      "ticker": "AFRM",
+      "horizon": "1W",
+      "score": 0.07806859809436725
     },
     {
       "ticker": "APP",
       "horizon": "1W",
-      "score": -0.05194210254215621
+      "score": 0.03199845466147083
     },
     {
-      "ticker": "HOOD",
+      "ticker": "ASTS",
       "horizon": "1W",
-      "score": -0.06065871579150006
-    },
-    {
-      "ticker": "COIN",
-      "horizon": "1W",
-      "score": -0.0728863858059906
+      "score": 0.03012726621914714
     },
     {
       "ticker": "OKLO",
       "horizon": "1W",
-      "score": -0.12623979619960413
-    },
-    {
-      "ticker": "CRWD",
-      "horizon": "1W",
-      "score": -0.12719770820820225
+      "score": -0.019420101669434583
     },
     {
       "ticker": "RKLB",
       "horizon": "1W",
-      "score": -0.13218091336657178
+      "score": -0.02098159586701733
+    },
+    {
+      "ticker": "HOOD",
+      "horizon": "1W",
+      "score": -0.022540758321210254
+    },
+    {
+      "ticker": "COIN",
+      "horizon": "1W",
+      "score": -0.028605147351234317
     },
     {
       "ticker": "MU",
       "horizon": "1W",
-      "score": -0.16793167909812204
+      "score": -0.08401713626201346
+    },
+    {
+      "ticker": "CRWD",
+      "horizon": "1W",
+      "score": -0.11839161238009857
     },
     {
       "ticker": "AMD",
       "horizon": "1W",
-      "score": -0.25456080191640756
+      "score": -0.15286058201646263
     },
     {
       "ticker": "SOXL",
       "horizon": "1W",
-      "score": -0.39571383430509166
+      "score": -0.23952251830997906
     },
     {
       "ticker": "APP",
       "horizon": "1M",
-      "score": 0.436321385592298
+      "score": 0.5448115805126429
     },
     {
       "ticker": "MRNA",
       "horizon": "1M",
-      "score": 0.01741426458112288
+      "score": 0.012680978535378248
     },
     {
       "ticker": "GDX",
       "horizon": "1M",
-      "score": -0.13014601885888163
+      "score": -0.03744565504176152
     },
     {
       "ticker": "PLTR",
       "horizon": "1M",
-      "score": -0.17981204617519267
-    },
-    {
-      "ticker": "AFRM",
-      "horizon": "1M",
-      "score": -0.18373442081579205
+      "score": -0.13496463817673224
     },
     {
       "ticker": "RKLB",
       "horizon": "1M",
-      "score": -0.21579144302308517
+      "score": -0.15791055234134846
     },
     {
       "ticker": "CRWD",
       "horizon": "1M",
-      "score": -0.22531369197677914
+      "score": -0.1788239902969361
     },
     {
-      "ticker": "HOOD",
+      "ticker": "AFRM",
       "horizon": "1M",
-      "score": -0.29219154431409355
+      "score": -0.18241061695868124
     },
     {
       "ticker": "IONQ",
       "horizon": "1M",
-      "score": -0.2948754568539276
+      "score": -0.23391630227326574
     },
     {
       "ticker": "OKLO",
       "horizon": "1M",
-      "score": -0.3014387555665059
+      "score": -0.24220503941105181
+    },
+    {
+      "ticker": "HOOD",
+      "horizon": "1M",
+      "score": -0.2703413779472814
     },
     {
       "ticker": "AMD",
       "horizon": "1M",
-      "score": -0.3185131121625597
-    },
-    {
-      "ticker": "COIN",
-      "horizon": "1M",
-      "score": -0.3724592750810166
-    },
-    {
-      "ticker": "ASTS",
-      "horizon": "1M",
-      "score": -0.4055297500215689
+      "score": -0.2711888233897744
     },
     {
       "ticker": "MU",
       "horizon": "1M",
-      "score": -0.40893709162838265
+      "score": -0.32856255789666666
+    },
+    {
+      "ticker": "COIN",
+      "horizon": "1M",
+      "score": -0.345253945842389
+    },
+    {
+      "ticker": "ASTS",
+      "horizon": "1M",
+      "score": -0.39734963172131116
     },
     {
       "ticker": "SOXL",
       "horizon": "1M",
-      "score": -0.747457492575007
+      "score": -0.6896435087068846
     },
     {
       "ticker": "MRNA",
       "horizon": "3M",
-      "score": 0.4177628011901245
+      "score": 0.5023646906293658
     },
     {
       "ticker": "APP",
       "horizon": "3M",
-      "score": 0.19424956051053072
+      "score": 0.22997539720846655
     },
     {
       "ticker": "CRWD",
       "horizon": "3M",
-      "score": -0.03703680840953633
+      "score": 0.05721169874586871
     },
     {
       "ticker": "PLTR",
       "horizon": "3M",
-      "score": -0.10178237395106562
+      "score": 0.004487219220499421
     },
     {
       "ticker": "AMD",
       "horizon": "3M",
-      "score": -0.13702987944636083
+      "score": -0.09185372798679296
     },
     {
       "ticker": "AFRM",
       "horizon": "3M",
-      "score": -0.1438441327653308
+      "score": -0.17404143241271144
     },
     {
       "ticker": "GDX",
       "horizon": "3M",
-      "score": -0.22981211427206147
+      "score": -0.19998889878214096
     },
     {
       "ticker": "RKLB",
       "horizon": "3M",
-      "score": -0.2663417307598702
-    },
-    {
-      "ticker": "HOOD",
-      "horizon": "3M",
-      "score": -0.37615490679215635
+      "score": -0.21248511758400448
     },
     {
       "ticker": "MU",
       "horizon": "3M",
-      "score": -0.37621783601009073
+      "score": -0.3442525153554865
     },
     {
       "ticker": "IONQ",
       "horizon": "3M",
-      "score": -0.3976655456528755
+      "score": -0.3577267989386423
+    },
+    {
+      "ticker": "HOOD",
+      "horizon": "3M",
+      "score": -0.3770813805098969
     },
     {
       "ticker": "COIN",
       "horizon": "3M",
-      "score": -0.4248587647851658
+      "score": -0.399999128730802
     },
     {
       "ticker": "OKLO",
       "horizon": "3M",
-      "score": -0.5140385343678315
+      "score": -0.4923189838963952
     },
     {
       "ticker": "ASTS",
       "horizon": "3M",
-      "score": -0.5543515372718298
+      "score": -0.5904649491844062
     },
     {
       "ticker": "SOXL",
       "horizon": "3M",
-      "score": -0.7432037720531837
+      "score": -0.7027172248670439
     }
   ],
-  "generated_at": "2026-11-26T17:35:39.965707+00:00",
+  "generated_at": "2026-11-28T16:51:40.954723+00:00",
   "strategy_sha256": "9bae5f30ebd0697a7068ba9d80fa4ab9a2d2734396260750c736eed24c80f9e8",
-  "features_sha256": "6f3c424dcd18f443ea05d57e453b47a0813fb02c601cb18107cb9d1c24c72e2d"
+  "features_sha256": "524d10812595c31b6aa355f497fe87b2a817d367d1560ae7330e9f6bbd9e3e48"
 }

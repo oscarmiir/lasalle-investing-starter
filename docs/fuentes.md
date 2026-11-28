@@ -38,7 +38,7 @@ ajuste por *splits* y dividendos, autenticación, cuota gratuita, estabilidad y 
 
 ## Integración y validación cruzada
 
-- `uv run python download_nasdaq.py --start 2024-11-01 --end 2026-11-25` guarda la respuesta literal y su
+- `uv run python download_nasdaq.py --start 2024-11-01 --end 2026-11-27` guarda la respuesta literal y su
   `manifest.json` (URL, hora, SHA-256, clase de activo) en `lake/raw/nasdaq/<descarga>/`.
 - `etl_spark.py --check-root lake/raw/nasdaq` (valor por defecto) verifica las huellas de esta fuente, une
   por `(ticker, fecha)` el `close` de Yahoo con el `Close/Last` de Nasdaq y aplica:

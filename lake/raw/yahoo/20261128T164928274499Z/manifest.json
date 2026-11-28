@@ -1,0 +1,156 @@
+{
+  "source": "Yahoo Finance chart",
+  "files": [
+    {
+      "ticker": "MU",
+      "file": "MU.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/MU?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:28.590578+00:00",
+      "sha256": "c1d2046a98cfbeca197b448be442102917bcdd80dd2c911e6b8b3daa7663f705",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "AMD",
+      "file": "AMD.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AMD?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:28.800833+00:00",
+      "sha256": "2a7751753edab90850567d733deec27825ca473b926af1e41c75bf9da4569ba2",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "SOXL",
+      "file": "SOXL.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/SOXL?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:29.064601+00:00",
+      "sha256": "da0c6b99f1d3dabf4b5bb7a5841b0f769131ae09dc78a3da80af636271b74bc1",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "PLTR",
+      "file": "PLTR.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/PLTR?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:29.297276+00:00",
+      "sha256": "11153cd92eb31710f47b748f113c66b32edaf4bf74e2dbf2a8bf2db94351a456",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "APP",
+      "file": "APP.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/APP?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:29.531557+00:00",
+      "sha256": "f03c10408ddfdb6d62faa023ae6f0c64df560dc873650166a6ffedd8e8c236a4",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "CRWD",
+      "file": "CRWD.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/CRWD?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:29.796642+00:00",
+      "sha256": "643a5cfab59c079243588af25b938253f895a29617a2b64b3414858690a110f6",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "IONQ",
+      "file": "IONQ.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/IONQ?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:30.030700+00:00",
+      "sha256": "4e22e9cb72b96f715e871f7516e25eae322495704152177c44f67ea1731d763f",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "OKLO",
+      "file": "OKLO.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/OKLO?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:30.244840+00:00",
+      "sha256": "d8dc19dfdab2fbfb0886c2bd9ced9d73352ac38d63e1bd1320f4fc845d05a029",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "RKLB",
+      "file": "RKLB.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/RKLB?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:30.491205+00:00",
+      "sha256": "1de6f4019bf7dfa9d968c876b186fb7b64f4d9274e09f5fcc081713b6dce2484",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "ASTS",
+      "file": "ASTS.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/ASTS?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:30.695669+00:00",
+      "sha256": "1b3efd373f8f7ba649ce9bbdfb4e8194527e90cb251b701043722fe98304dc4f",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "HOOD",
+      "file": "HOOD.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/HOOD?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:30.907318+00:00",
+      "sha256": "37f02d121d605ebe8526a48163f7a850f315b25c70e4db319293a51088f86ccc",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "AFRM",
+      "file": "AFRM.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AFRM?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:31.197676+00:00",
+      "sha256": "0d667648e332b430fe4617f7d90120b9d661cf2924d0f16cd50f65c5a7e96a17",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "COIN",
+      "file": "COIN.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/COIN?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:31.360792+00:00",
+      "sha256": "8fe4ed83861d1cdfca8526eaf6265994059a4ab5f39b57b8df5af3b3523d6646",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "MRNA",
+      "file": "MRNA.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/MRNA?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:31.594508+00:00",
+      "sha256": "5bc4f6a5d46ef99c3a311c73f79ad11a4ec4e8c650bb30a26c668bcd48282184",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    },
+    {
+      "ticker": "GDX",
+      "file": "GDX.json",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/GDX?interval=1d&period1=1730419200&period2=1795824000",
+      "provider": "Yahoo Finance chart",
+      "downloaded_at": "2026-11-28T16:49:31.774569+00:00",
+      "sha256": "9b6410c04feff41f18682b94985b3c819dcca660842b7e7dec7ed43904d223f8",
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
+    }
+  ],
+  "note": "Snapshot de cierres diarios; acceso web no oficial, sujeto a disponibilidad del proveedor."
+}

@@ -1,7 +1,7 @@
 {
   "engine": "pyspark",
   "version": "etl-v2",
-  "generated_at": "2026-11-27T16:21:59.157619+00:00",
+  "generated_at": "2026-11-28T16:50:42.740458+00:00",
   "status": "ok",
   "raw_root": "/workspace/lake/raw/yahoo",
   "lake_root": "/workspace/lake",
@@ -27,7 +27,7 @@
       "name": "integridad_raw",
       "action": "DETENER",
       "status": "ok",
-      "detail": "25 ficheros con huella SHA-256 verificada"
+      "detail": "40 ficheros con huella SHA-256 verificada"
     },
     {
       "name": "filas_rechazadas",
@@ -75,7 +75,7 @@
       "name": "frescura_del_corte",
       "action": "IDENTIFICAR",
       "status": "ok",
-      "detail": "corte 2026-11-25; fin pedido 2026-11-25; antigüedad 2 días"
+      "detail": "corte 2026-11-27; fin pedido 2026-11-27; antigüedad 1 días"
     },
     {
       "name": "senales_completas",
@@ -89,15 +89,15 @@
       "status": "ok",
       "detail": {
         "escritas": {
-          "clean/prices": 9190,
+          "clean/prices": 9205,
           "quarantine/rejected": 0,
-          "curated/features_daily": 9190,
+          "curated/features_daily": 9205,
           "curated/features": 15
         },
         "releidas": {
-          "clean/prices": 9190,
+          "clean/prices": 9205,
           "quarantine/rejected": 0,
-          "curated/features_daily": 9190,
+          "curated/features_daily": 9205,
           "curated/features": 15
         }
       }
@@ -145,15 +145,21 @@
       "files": 15,
       "requested_start": "2024-11-01",
       "requested_end": "2026-11-25"
+    },
+    {
+      "download_id": "20261128T164928274499Z",
+      "files": 15,
+      "requested_start": "2024-11-01",
+      "requested_end": "2026-11-27"
     }
   ],
   "counts": {
-    "read": 9190,
+    "read": 16975,
     "rejected": 0,
     "rejected_by_reason": {},
-    "valid": 9190,
-    "superseded_by_newer_download": 0,
-    "clean": 9190
+    "valid": 16975,
+    "superseded_by_newer_download": 7770,
+    "clean": 9205
   },
   "coverage": [
     {
@@ -166,18 +172,18 @@
     },
     {
       "ticker": "AFRM",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "AMD",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -190,42 +196,42 @@
     },
     {
       "ticker": "APP",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "ASTS",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "COIN",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "CRWD",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "GDX",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -238,18 +244,18 @@
     },
     {
       "ticker": "HOOD",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "IONQ",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -270,10 +276,10 @@
     },
     {
       "ticker": "MRNA",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -286,10 +292,10 @@
     },
     {
       "ticker": "MU",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -310,34 +316,34 @@
     },
     {
       "ticker": "OKLO",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "PLTR",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "RKLB",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
       "ticker": "SOXL",
-      "sessions": 518,
+      "sessions": 519,
       "first": "2024-11-01",
-      "last": "2026-11-25",
-      "download_id": "20261126T162237261455Z",
+      "last": "2026-11-27",
+      "download_id": "20261128T164928274499Z",
       "currency": "USD"
     },
     {
@@ -365,7 +371,7 @@
         "ticker": "MU",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 4.9e-05
       },
@@ -373,7 +379,7 @@
         "ticker": "AMD",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 5.2e-05
       },
@@ -381,7 +387,7 @@
         "ticker": "SOXL",
         "compared": 518,
         "different": 1,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.013308
       },
@@ -389,7 +395,7 @@
         "ticker": "PLTR",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -397,7 +403,7 @@
         "ticker": "APP",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -405,7 +411,7 @@
         "ticker": "CRWD",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 1e-06
       },
@@ -413,7 +419,7 @@
         "ticker": "IONQ",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -421,7 +427,7 @@
         "ticker": "OKLO",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -429,7 +435,7 @@
         "ticker": "RKLB",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -437,7 +443,7 @@
         "ticker": "ASTS",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -445,7 +451,7 @@
         "ticker": "HOOD",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -453,7 +459,7 @@
         "ticker": "AFRM",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -461,7 +467,7 @@
         "ticker": "COIN",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 4.9e-05
       },
@@ -469,7 +475,7 @@
         "ticker": "MRNA",
         "compared": 518,
         "different": 0,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.0
       },
@@ -477,20 +483,20 @@
         "ticker": "GDX",
         "compared": 518,
         "different": 1,
-        "only_primary": 0,
+        "only_primary": 1,
         "only_second": 0,
         "max_diff": 0.012059
       }
     ]
   },
-  "cut_age_days": 2,
+  "cut_age_days": 1,
   "parquet_reread": {
-    "clean/prices": 9190,
+    "clean/prices": 9205,
     "quarantine/rejected": 0,
-    "curated/features_daily": 9190,
+    "curated/features_daily": 9205,
     "curated/features": 15
   },
-  "snapshot_date": "2026-11-25",
+  "snapshot_date": "2026-11-27",
   "companies": 15,
-  "features_sha256": "6f3c424dcd18f443ea05d57e453b47a0813fb02c601cb18107cb9d1c24c72e2d"
+  "features_sha256": "524d10812595c31b6aa355f497fe87b2a817d367d1560ae7330e9f6bbd9e3e48"
 }
