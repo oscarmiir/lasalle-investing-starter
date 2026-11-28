@@ -238,9 +238,6 @@ docs/                                                  fuentes, lake, universo, 
 
 ## Continuidad
 
-- **RA2:** construir el warehouse a partir del lake y entrenar modelos que se compararán con la `v1`
-  (`curated/features_daily` y SEC EDGAR).
-- **RA3:** agentes, conservando el contrato de la API.
-
-La colaboración con la plataforma del profesor es voluntaria y se coordina en su
-[repositorio](https://github.com/ericbellet/proyecto_lasalle_2026_2027).
+- **RA2:** el warehouse se construirá a partir de este lake y los modelos de ML se compararán con la `v1`.
+  Para ello se conservan `curated/features_daily` y se ha identificado SEC EDGAR como fuente de fundamentales.
+- **RA3:** se añadirán agentes manteniendo el mismo contrato de la API.
